@@ -6,29 +6,30 @@ body {
   background-attachment: fixed;
   background-color: #f4f7fc;
   font-family: 'Roboto', sans-serif;
-  color: #fff; /* ganti ke putih */
+  color: #fff;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 30px;
-  text-shadow: 1px 1px 4px rgba(0,0,0,0.8); /* efek bayangan agar teks lebih terbaca */
+  padding: 20px;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+  box-sizing: border-box;
 }
 
 /* Judul */
 h2 {
   margin-bottom: 20px;
   font-size: 28px;
-  color: #fff; /* ganti ke putih */
-  font-weight: 700; /* lebih tebal */
+  color: #fff;
+  font-weight: 700;
   text-align: center;
   text-shadow: 2px 2px 6px rgba(0,0,0,0.9);
 }
 
 /* Card Sensor */
 .card {
-  background: rgba(255, 255, 255, 0.85); /* semi transparan supaya teks terbaca, tapi background tetap terlihat */
+  background: rgba(255, 255, 255, 0.9);
   padding: 25px;
   border-radius: 15px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
@@ -36,28 +37,36 @@ h2 {
   max-width: 400px;
   text-align: left;
   animation: fadeIn 1s ease;
-  color: #1e3a8a; /* teks di dalam card tetap gelap agar enak dibaca */
+  color: #1e3a8a;
   font-weight: 600;
+  box-sizing: border-box;
 }
 
+/* Teks Data Sensor */
 .card p {
   font-size: 18px;
   margin: 12px 0;
-  padding-left: 10px;
+  padding: 10px;
+  padding-left: 12px;
   border-left: 5px solid #1e3a8a;
   background-color: #f0f6ff;
   border-radius: 6px;
   color: #1e3a8a;
   font-weight: 600;
+  word-wrap: break-word;
 }
 
+/* Footer */
 footer {
   margin-top: 30px;
   font-size: 14px;
   color: #ffffff;
-  background-color: rgba(30, 58, 138, 0.7); /* biru tua transparan */
-  padding: 6px 12px;
+  background-color: rgba(30, 58, 138, 0.7);
+  padding: 8px 14px;
   border-radius: 10px;
   text-align: center;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
 }
