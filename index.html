@@ -72,6 +72,21 @@
       color: red;
       margin-top: 10px;
     }
+
+    /* Tambahan style untuk link register */
+    .register-link {
+      margin-top: 20px;
+      display: block;
+      color: #1e3a8a;
+      font-weight: 700;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .register-link:hover {
+      color: #3c5ed8;
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -82,6 +97,9 @@
     <input type="password" id="password" placeholder="Password" />
     <button onclick="login()">Login</button>
     <p class="error" id="errorMsg"></p>
+
+    <!-- Link Register -->
+    <a href="register.html" class="register-link">Belum punya akun? Daftar di sini</a>
   </div>
 
   <!-- Firebase SDK -->
@@ -91,13 +109,13 @@
   <!-- Firebase Configuration -->
   <script>
    const firebaseConfig = {
-  apiKey: "AIzaSyDe_WxXPw2OPlkSn1YDhIjeR8Jz4gIedT0",
-  authDomain: "sensor-c6fe3.firebaseapp.com",
-  databaseURL: "https://sensor-c6fe3-default-rtdb.firebaseio.com",
-  projectId: "sensor-c6fe3",
-  storageBucket: "sensor-c6fe3.firebasestorage.app",
-  messagingSenderId: "916474546319",
-  appId: "1:916474546319:web:10f3b52d8c193c4ba2c8fa"
+     apiKey: "AIzaSyDe_WxXPw2OPlkSn1YDhIjeR8Jz4gIedT0",
+     authDomain: "sensor-c6fe3.firebaseapp.com",
+     databaseURL: "https://sensor-c6fe3-default-rtdb.firebaseio.com",
+     projectId: "sensor-c6fe3",
+     storageBucket: "sensor-c6fe3.firebasestorage.app",
+     messagingSenderId: "916474546319",
+     appId: "1:916474546319:web:10f3b52d8c193c4ba2c8fa"
     };
 
     firebase.initializeApp(firebaseConfig);
