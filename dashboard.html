@@ -1,51 +1,274 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sensor Monitoring Dashboard</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Monitoring Kumbung Jamur</title>
+  <link rel="stylesheet" href="style.css">
 
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
   <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
   <!-- Firebase Config -->
   <script>
-  const firebaseConfig = {
+    const firebaseConfig = {
   apiKey: "AIzaSyDe_WxXPw2OPlkSn1YDhIjeR8Jz4gIedT0",
   authDomain: "sensor-c6fe3.firebaseapp.com",
   databaseURL: "https://sensor-c6fe3-default-rtdb.firebaseio.com",
   projectId: "sensor-c6fe3",
-  storageBucket: "sensor-c6fe3.firebasestorage.app",
+  storageBucket: "sensor-c6fe3.appspot.com",
   messagingSenderId: "916474546319",
   appId: "1:916474546319:web:10f3b52d8c193c4ba2c8fa"
-    };
+};
     firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
   </script>
+
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+    }
+    .header {
+      background-color: #f1c40f;
+      color: #333;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+    }
+    .logo img {
+      margin-right: 15px;
+    }
+    .navbar ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      background-color: #f39c12;
+    }
+    .navbar ul li {
+      margin: 0;
+    }
+    .navbar ul li a {
+      display: block;
+      padding: 12px 20px;
+      color: white;
+      text-decoration: none;
+    }
+    .navbar ul li a:hover {
+      background-color: #e67e22;
+    }
+    .content {
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+    .card-monitoring {
+      background: linear-gradient(135deg, #fffbe6 0%, #f9f9f9 100%);
+      box-shadow: 0 4px 16px rgba(241,196,15,0.15);
+      border-radius: 16px;
+      padding: 32px 24px;
+      margin-top: 32px;
+    }
+    .monitor-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      justify-content: space-between;
+    }
+    .monitor-item {
+      flex: 1 1 180px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      padding: 20px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 140px;
+      transition: box-shadow 0.2s;
+    }
+    .monitor-item .icon {
+      font-size: 2.2rem;
+      margin-bottom: 8px;
+    }
+    .monitor-item .label {
+      font-size: 1.1rem;
+      color: #888;
+      margin-bottom: 6px;
+    }
+    .monitor-item .value {
+      font-size: 2.1rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 2px;
+      transition: color 0.3s;
+    }
+    .monitor-item .unit {
+      font-size: 1rem;
+      color: #aaa;
+    }
+    .monitor-item.suhu .value { color: #e67e22; }
+    .monitor-item.humidity .value { color: #3498db; }
+    .monitor-item.arus .value { color: #27ae60; }
+    .monitor-item.relay .relay-badge {
+      display: inline-block;
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #fff;
+      background: #bbb;
+      margin-top: 8px;
+      transition: background 0.3s;
+    }
+    .monitor-item.relay .relay-badge.on {
+      background: #27ae60;
+    }
+    .monitor-item.relay .relay-badge.off {
+      background: #e74c3c;
+    }
+    .maps-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      margin-top: 16px;
+    }
+    .map-item {
+      flex: 1 1 320px;
+      min-width: 320px;
+      max-width: 480px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .map-item h3 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      color: #333;
+    }
+  </style>
 </head>
 <body>
-  <div class="dashboard-container">
-    <h2>🌡️ Sensor Monitoring Dashboard</h2>
-
-    <div class="sticker-area">
-      <img class="sticker" src="https://cdn-icons-png.flaticon.com/512/1998/1998614.png" alt="Sticker" />
+  <header class="header">
+    <div class="logo">
+      <img src="logo.png" alt="Logo" height="50">
+      <h1>Monitoring Kumbung Jamur</h1>
     </div>
+  </header>
 
-    <div id="sensorData" class="card">
-      <p>🌡️ Suhu: <span id="suhu">N/A</span> °C</p>
-      <p>💧 Kelembapan: <span id="humidity">N/A</span> %</p>
-      <p>⚡ Arus: <span id="arus">N/A</span> A</p>
-      <p>🔌 Status Relay: <span id="relay">N/A</span></p>
-    </div>
-  </div>
+  <nav class="navbar">
+    <ul>
+      <li><a href="#" onclick="showSection('beranda')">Beranda</a></li>
+      <li><a href="#" onclick="showSection('monitoring')">Monitoring</a></li>
+      <li><a href="#" onclick="showSection('lokasi')">Lokasi</a></li>
+    </ul>
+  </nav>
 
-  <footer>© 2025 Monitoring Dashboard by PBLIN211 😎</footer>
+  <main class="content">
+    <section id="beranda">
+      <h2>Selamat Datang di Sistem Monitoring Kumbung Jamur</h2>
+      <p>Sistem ini digunakan untuk memantau suhu, kelembaban, dan parameter lain pada kumbung jamur Anda secara real-time.</p>
+    </section>
 
-  <script src="dashboard.js"></script>
+    <section id="monitoring" style="display: none;">
+      <h2>Monitoring Kumbung Jamur</h2>
+      <div class="card card-monitoring">
+        <div class="monitor-row">
+          <div class="monitor-item suhu">
+            <span class="icon">🌡️</span>
+            <span class="label">Suhu</span>
+            <span class="value" id="temp">--</span>
+            <span class="unit">°C</span>
+          </div>
+          <div class="monitor-item humidity">
+            <span class="icon">💧</span>
+            <span class="label">Kelembaban</span>
+            <span class="value" id="humidity">--</span>
+            <span class="unit">%</span>
+          </div>
+          <div class="monitor-item arus">
+            <span class="icon">⚡</span>
+            <span class="label">Arus</span>
+            <span class="value" id="current">--</span>
+            <span class="unit">A</span>
+          </div>
+          <div class="monitor-item relay">
+            <span class="icon">🔌</span>
+            <span class="label">Status Relay</span>
+            <span class="relay-badge" id="relay">--</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="lokasi" style="display: none;">
+      <h2>Lokasi Kumbung Jamur</h2>
+      <div class="maps-container">
+        <div class="map-item">
+          <h3>Kumbung 1: Istana Jamur</h3>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d249.31528114732433!2d104.06432402056804!3d1.128466372814731!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d989a1fea5227d%3A0xe0cd667354931761!2sIstana%20Jamur!5e0!3m2!1sid!2sus!4v1747798810346!5m2!1sid!2sus" width="100%" height="350" style="border:0; border-radius:12px; margin-bottom:16px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="map-item">
+          <h3>Kumbung 2: Jl. Tumbuh Subur No.4, Batam</h3>
+          <iframe src="https://www.google.com/maps?q=1.1205,104.0499&hl=id&z=16&output=embed" width="100%" height="250" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function showSection(id) {
+      const sections = document.querySelectorAll('main section');
+      sections.forEach(section => section.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
+    }
+
+    // Firebase realtime update
+    const tempRef = db.ref("sensor/suhu");
+    const humRef = db.ref("sensor/humidity");
+    const arusRef = db.ref("sensor/arus");
+    const relayRef = db.ref("relayStatus");
+
+    tempRef.on('value', (snapshot) => {
+      document.getElementById("temp").textContent = snapshot.val();
+    });
+
+    humRef.on('value', (snapshot) => {
+      document.getElementById("humidity").textContent = snapshot.val();
+    });
+
+    arusRef.on('value', (snapshot) => {
+      document.getElementById("current").textContent = snapshot.val();
+    });
+
+    relayRef.on('value', (snapshot) => {
+      const val = snapshot.val();
+      let status = val;
+      let badge = document.getElementById("relay");
+      badge.classList.remove("on", "off");
+      if (val === 1 || val === "1" || val === true || val === "ON") {
+        status = "ON";
+        badge.classList.add("on");
+      } else if (val === 0 || val === "0" || val === false || val === "OFF") {
+        status = "OFF";
+        badge.classList.add("off");
+      }
+      badge.textContent = status;
+    });
+  </script>
 </body>
 </html>
