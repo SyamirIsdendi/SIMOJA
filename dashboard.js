@@ -1,20 +1,21 @@
-firebase.auth().onAuthStateChanged(user => {
-  if (!user) {
-    window.location.href = "index.html"; // belum login, redirect ke login
-    return;
-  }
+const tempRef = db.ref("sensor/suhu");
+const humRef = db.ref("sensor/humidity");
+const arusRef = db.ref("sensor/arus");
+const relayRef = db.ref("relayStatus"); // ← ini diperbaiki ya!
 
-  const db = firebase.database();
-
-  db.ref('sensor').on('value', snapshot => {
-    const data = snapshot.val();
-    document.getElementById('suhu').textContent = data?.suhu ?? 'N/A';
-    document.getElementById('humidity').textContent = data?.humidity ?? 'N/A';
-    document.getElementById('arus').textContent = data?.arus ?? 'N/A';
-  });
-
-  db.ref('relayStatus').on('value', snapshot => {
-    const relay = snapshot.val();
-    document.getElementById('relay').textContent = relay ?? 'N/A';
-  });
+tempRef.on('value', (snapshot) => {
+  document.getElementById("temp").textContent = snapshot.val();
 });
+
+humRef.on('value', (snapshot) => {
+  document.getElementById("humidity").textContent = snapshot.val();
+});
+
+arusRef.on('value', (snapshot) => {
+  document.getElementById("current").textContent = snapshot.val();
+});
+
+relayRef.on('value', (snapshot) => {
+  document.getElementById("relay").textContent = snapshot.val();
+});
+
