@@ -1,72 +1,52 @@
-body {
-  background-image: url('https://i.ibb.co/NdWsWxYP/97dd719b85c11017e64ab0063baa615c.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
-  background-attachment: fixed;
-  background-color: #f4f7fc;
-  font-family: 'Roboto', sans-serif;
-  color: #fff;
-  min-height: 100vh;
+/* Navbar kuning seperti web Kementerian */
+.navbar {
+  background-color: #ffea00;
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
-  flex-direction: column;
+  gap: 20px;
+}
+
+.navbar li {
+  display: inline;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+  transition: color 0.2s;
+}
+
+.navbar a:hover {
+  color: #d32f2f;
+}
+
+.header {
+  display: flex;
   align-items: center;
-  justify-content: center;
+  padding: 10px 20px;
+  background-color: #f1f1f1;
+  border-bottom: 1px solid #ccc;
+}
+
+.header .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header h1 {
+  font-size: 1.5em;
+  margin: 0;
+}
+
+.content {
   padding: 20px;
-  text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
-  box-sizing: border-box;
-}
-
-/* Judul */
-h2 {
-  margin-bottom: 20px;
-  font-size: 28px;
-  color: #fff;
-  font-weight: 700;
-  text-align: center;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.9);
-}
-
-/* Card Sensor */
-.card {
-  background: rgba(255, 255, 255, 0.9);
-  padding: 25px;
-  border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  width: 100%;
-  max-width: 400px;
-  text-align: left;
-  animation: fadeIn 1s ease;
-  color: #1e3a8a;
-  font-weight: 600;
-  box-sizing: border-box;
-}
-
-/* Teks Data Sensor */
-.card p {
-  font-size: 18px;
-  margin: 12px 0;
-  padding: 10px;
-  padding-left: 12px;
-  border-left: 5px solid #1e3a8a;
-  background-color: #f0f6ff;
-  border-radius: 6px;
-  color: #1e3a8a;
-  font-weight: 600;
-  word-wrap: break-word;
-}
-
-/* Footer */
-footer {
-  margin-top: 30px;
-  font-size: 14px;
-  color: #ffffff;
-  background-color: rgba(30, 58, 138, 0.7);
-  padding: 8px 14px;
-  border-radius: 10px;
-  text-align: center;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  width: 100%;
-  max-width: 400px;
-  box-sizing: border-box;
 }
