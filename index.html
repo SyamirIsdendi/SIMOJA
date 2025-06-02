@@ -14,7 +14,7 @@
     }
 
     body {
-      background: linear-gradient(to right, #dfe9f3, #ffffff);
+      background: linear-gradient(to right, #ffe066, #fffbe6);
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -22,17 +22,18 @@
     }
 
     .login-container {
-      background-color: white;
+      background-color: #fffbe6;
       padding: 40px 30px;
       border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 10px 30px rgba(241,196,15,0.13);
       width: 100%;
       max-width: 400px;
       text-align: center;
+      border: 2px solid #ffe066;
     }
 
     h2 {
-      color: #1e3a8a;
+      color: #e6b800;
       margin-bottom: 25px;
     }
 
@@ -40,36 +41,39 @@
       width: 100%;
       padding: 12px 15px;
       margin: 10px 0;
-      border: 1px solid #ccc;
+      border: 1.5px solid #ffe066;
       border-radius: 10px;
       transition: 0.3s;
+      background: #fff;
     }
 
     input:focus {
       outline: none;
-      border-color: #1e3a8a;
-      background-color: #f0f8ff;
+      border-color: #f1c40f;
+      background-color: #fffde4;
     }
 
     button {
       width: 100%;
       padding: 12px;
-      background-color: #1e3a8a;
-      color: white;
+      background-color: #f1c40f;
+      color: #fff;
       font-weight: bold;
       border: none;
       border-radius: 10px;
       cursor: pointer;
       margin-top: 15px;
       transition: background-color 0.3s;
+      font-size: 1.08rem;
+      box-shadow: 0 2px 8px rgba(241,196,15,0.13);
     }
 
     button:hover {
-      background-color: #3c5ed8;
+      background-color: #e6b800;
     }
 
     .error {
-      color: red;
+      color: #e74c3c;
       margin-top: 10px;
     }
 
@@ -77,21 +81,60 @@
     .register-link {
       margin-top: 20px;
       display: block;
+<<<<<<< HEAD
+      color: #e6b800;
+=======
       color: #1e3a8a;
+>>>>>>> 10949df5b296dc37b91c43b20417db2484bb34aa
       font-weight: 700;
       text-decoration: none;
       transition: color 0.3s;
     }
 
     .register-link:hover {
+<<<<<<< HEAD
+      color: #f1c40f;
+      text-decoration: underline;
+    }
+
+    /* Animasi */
+    body {
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    body.loaded {
+      opacity: 1;
+    }
+
+    body.unloading {
+      opacity: 0;
+    }
+=======
       color: #3c5ed8;
       text-decoration: underline;
     }
+>>>>>>> 10949df5b296dc37b91c43b20417db2484bb34aa
   </style>
 </head>
 <body>
+  <script>
+    // Animasi masuk saat halaman dimuat
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.classList.add('loaded');
+    });
+    // Animasi keluar saat pindah halaman
+    document.querySelectorAll('a, button[type="submit"], button:not([onclick^="login"], [onclick^="register"])').forEach(function(el) {
+      el.addEventListener('click', function(e) {
+        if (el.href || el.type === 'submit') {
+          document.body.classList.add('unloading');
+        }
+      });
+    });
+  </script>
 
   <div class="login-container">
+    <div style="font-size: 3.5rem; margin-bottom: 10px;">👨‍🌾</div>
     <h2>Sensor Monitoring Login</h2>
     <input type="email" id="email" placeholder="Email" />
     <input type="password" id="password" placeholder="Password" />
@@ -108,6 +151,16 @@
 
   <!-- Firebase Configuration -->
   <script>
+<<<<<<< HEAD
+  const firebaseConfig = {
+  apiKey: "AIzaSyDe_WxXPw2OPlkSn1YDhIjeR8Jz4gIedT0",
+  authDomain: "sensor-c6fe3.firebaseapp.com",
+  databaseURL: "https://sensor-c6fe3-default-rtdb.firebaseio.com",
+  projectId: "sensor-c6fe3",
+  storageBucket: "sensor-c6fe3.firebasestorage.app",
+  messagingSenderId: "916474546319",
+  appId: "1:916474546319:web:10f3b52d8c193c4ba2c8fa"
+=======
    const firebaseConfig = {
      apiKey: "AIzaSyDe_WxXPw2OPlkSn1YDhIjeR8Jz4gIedT0",
      authDomain: "sensor-c6fe3.firebaseapp.com",
@@ -116,6 +169,7 @@
      storageBucket: "sensor-c6fe3.firebasestorage.app",
      messagingSenderId: "916474546319",
      appId: "1:916474546319:web:10f3b52d8c193c4ba2c8fa"
+>>>>>>> 10949df5b296dc37b91c43b20417db2484bb34aa
     };
 
     firebase.initializeApp(firebaseConfig);
