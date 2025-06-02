@@ -570,6 +570,58 @@
         font-size: 1vw !important;
       }
     }
+    /* Perbaikan ukuran sidebar dan navbar untuk mobile */
+    .sidebar,
+    .sidebar.sidebar-kanan {
+      min-width: 80px;
+      max-width: 100px;
+      padding: 16px 8px 12px 8px;
+      font-size: 0.98rem;
+    }
+    .sidebar.sidebar-kiri {
+      min-width: 60px;
+      max-width: 80px;
+      padding: 0;
+    }
+    .sidebar h3,
+    .sidebar ul,
+    .sidebar .anggota-tim,
+    .sidebar hr,
+    .sidebar > div,
+    .sidebar .anggota-item {
+      font-size: 0.92rem;
+    }
+    .sidebar .anggota-item img {
+      width: 36px;
+      height: 36px;
+    }
+    .sidebar-kiri .foto-panjang {
+      width: 40px;
+      height: 70vh;
+    }
+    /* Navbar bigger for mobile */
+    .navbar ul li a {
+      font-size: 1.25rem;
+      padding: 18px 24px;
+      letter-spacing: 0.5px;
+    }
+    @media (max-width: 700px) {
+      .sidebar,
+      .sidebar.sidebar-kanan {
+        min-width: 60px;
+        max-width: 80px;
+        padding: 8px 2px 8px 2px;
+        font-size: 0.92rem;
+      }
+      .sidebar-kiri .foto-panjang {
+        width: 32px;
+        height: 50vh;
+      }
+      .navbar ul li a {
+        font-size: 1.15rem;
+        padding: 14px 10px;
+      }
+    }
   </style>
 </head>
 <body>
