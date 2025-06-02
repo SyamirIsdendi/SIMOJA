@@ -14,7 +14,7 @@
     }
 
     body {
-      background: linear-gradient(to right, #f8fbff, #e2ebf5);
+      background: linear-gradient(to right, #fffbe7, #ffe066);
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -22,7 +22,8 @@
     }
 
     .register-container {
-      background-color: white;
+      background-color: #fffde4;
+      border: 2px solid #ffe066;
       padding: 40px 30px;
       border-radius: 16px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -32,7 +33,7 @@
     }
 
     h2 {
-      color: #1e3a8a;
+      color: #bfa100;
       margin-bottom: 25px;
     }
 
@@ -40,24 +41,25 @@
       width: 100%;
       padding: 12px 15px;
       margin: 10px 0;
-      border: 1px solid #ccc;
+      border: 1.5px solid #ffe066;
       border-radius: 10px;
+      background-color: #fffbe7;
       transition: 0.3s;
     }
 
     input:focus {
       outline: none;
-      border-color: #1e3a8a;
-      background-color: #f0f8ff;
+      border-color: #ffd600;
+      background-color: #fff9c4;
     }
 
     button {
       width: 100%;
       padding: 12px;
-      background-color: #1e3a8a;
-      color: white;
+      background-color: #ffd600;
+      color: #7a5c00;
       font-weight: bold;
-      border: none;
+      border: 1.5px solid #ffe066;
       border-radius: 10px;
       cursor: pointer;
       margin-top: 15px;
@@ -65,7 +67,8 @@
     }
 
     button:hover {
-      background-color: #3c5ed8;
+      background-color: #ffe066;
+      color: #bfa100;
     }
 
     .error, .success {
@@ -74,28 +77,57 @@
     }
 
     .error {
-      color: red;
+      color: #bfa100;
     }
 
     .success {
-      color: green;
+      color: #7a5c00;
     }
 
     a {
       display: inline-block;
       margin-top: 15px;
-      color: #1e3a8a;
+      color: #bfa100;
       text-decoration: none;
     }
 
     a:hover {
       text-decoration: underline;
     }
+
+    /* Animasi */
+    body {
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    body.loaded {
+      opacity: 1;
+    }
+
+    body.unloading {
+      opacity: 0;
+    }
   </style>
 </head>
 <body>
+  <script>
+    // Animasi masuk saat halaman dimuat
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.classList.add('loaded');
+    });
+    // Animasi keluar saat pindah halaman
+    document.querySelectorAll('a, button[type="submit"], button:not([onclick^="login"], [onclick^="register"])').forEach(function(el) {
+      el.addEventListener('click', function(e) {
+        if (el.href || el.type === 'submit') {
+          document.body.classList.add('unloading');
+        }
+      });
+    });
+  </script>
 
   <div class="register-container">
+    <div style="font-size: 3.5rem; margin-bottom: 10px;">👨‍🌾</div>
     <h2>Buat Akun Baru</h2>
     <input type="email" id="regEmail" placeholder="Email" />
     <input type="password" id="regPassword" placeholder="Password" />
@@ -111,7 +143,7 @@
 
   <!-- Firebase Configuration -->
   <script>
-    const firebaseConfig = {
+  const firebaseConfig = {
   apiKey: "AIzaSyDe_WxXPw2OPlkSn1YDhIjeR8Jz4gIedT0",
   authDomain: "sensor-c6fe3.firebaseapp.com",
   databaseURL: "https://sensor-c6fe3-default-rtdb.firebaseio.com",
@@ -145,7 +177,7 @@
           successReg.textContent = "Registrasi berhasil! Silakan login.";
         })
         .catch(error => {
-          errorReg.textContent = "Registrasi gagal: " + error.message;
+          errorReg.textContent = "Registrasi anda gagal: " + error.message;
         });
     }
   </script>
