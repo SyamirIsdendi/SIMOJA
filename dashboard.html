@@ -475,156 +475,99 @@
       border: 3px solid #fffbe6;
     }
     @media (max-width: 1100px) {
+      /* NON-RESPONSIVE: Layout always side-by-side, only scale sizes */
       .main-layout {
-        flex-direction: column;
-        gap: 0;
+        flex-direction: row !important;
+        gap: 32px !important;
+        min-height: 600px !important;
       }
       .sidebar,
       .sidebar.sidebar-kanan {
-        position: static;
-        width: 100%;
-        margin-bottom: 24px;
-        max-width: 100%;
-        min-width: 0;
-      }
-      .sidebar.sidebar-kanan {
-        margin: 24px 0 0 0;
-        order: 2;
+        position: sticky !important;
+        width: 24vw !important;
+        max-width: 260px !important;
+        min-width: 120px !important;
+        margin: 0 !important;
+        padding: 2vw 1vw 2vw 1vw !important;
+        font-size: 1.1vw !important;
       }
       .sidebar.sidebar-kiri {
-        display: none;
-      }
-    }
-    @media (max-width: 700px) {
-      .main-layout {
-        flex-direction: column;
-        gap: 0;
-      }
-      .sidebar,
-      .sidebar.sidebar-kanan {
-        padding: 16px 8px 12px 8px;
-        font-size: 1rem;
-      }
-      .artikel-content {
-        padding: 18px 6px;
-      }
-      .swiper {
-        max-width: 100vw;
-        border-radius: 10px;
-      }
-    }
-    @media (max-width: 600px) {
-      .header {
-        flex-direction: column;
-        padding: 6px 8px;
-      }
-      .logo img {
-        height: 48px;
-        margin-right: 10px;
-      }
-      .logo-kanan img {
-        max-height: 48px;
-        width: 48px;
-      }
-      .navbar ul li a {
-        padding: 8px 10px;
-        font-size: 0.98rem;
-      }
-      .main-layout {
-        flex-direction: column;
-        gap: 0;
-        min-height: unset;
-      }
-      .sidebar,
-      .sidebar.sidebar-kanan {
-        position: static;
-        width: 100%;
-        max-width: 100%;
-        min-width: 0;
-        margin: 0 0 16px 0;
-        padding: 10px 6px 10px 6px;
-        font-size: 0.98rem;
-      }
-      .sidebar.sidebar-kiri {
-        display: none;
+        display: flex !important;
+        min-width: 7vw !important;
+        max-width: 12vw !important;
+        height: 100vh !important;
       }
       .content-area {
-        padding: 0 2px;
+        padding: 0 1vw !important;
       }
       .card,
       .card-monitoring {
-        padding: 12px 6px;
-        margin-top: 12px;
-        border-radius: 8px;
+        padding: 2vw 1vw !important;
+        margin-top: 2vw !important;
+        border-radius: 1vw !important;
       }
       .monitor-row {
-        flex-direction: column;
-        gap: 12px;
+        flex-direction: row !important;
+        gap: 2vw !important;
       }
       .monitor-item {
-        min-width: 0;
-        padding: 10px 4px;
-        font-size: 0.98rem;
+        min-width: 10vw !important;
+        padding: 1vw 0.5vw !important;
+        font-size: 1.1vw !important;
       }
       .maps-container {
-        flex-direction: column;
-        gap: 12px;
+        flex-direction: row !important;
+        gap: 2vw !important;
       }
       .map-item {
-        min-width: 0;
-        max-width: 100%;
-        padding: 8px 2px;
+        min-width: 20vw !important;
+        max-width: 40vw !important;
+        padding: 1vw 0.5vw !important;
       }
       .map-item iframe {
-        height: 180px !important;
+        height: 20vw !important;
       }
       .artikel-content {
-        padding: 10px 4px;
-        max-width: 98vw;
+        padding: 2vw 1vw !important;
+        max-width: 50vw !important;
       }
       .swiper {
-        max-width: 100vw;
-        border-radius: 8px;
-        aspect-ratio: unset;
-        height: 180px;
+        max-width: 60vw !important;
+        border-radius: 1vw !important;
+        height: 20vw !important;
       }
       .swiper-slide img {
-        border-radius: 8px;
+        border-radius: 1vw !important;
       }
       .shortcut-beranda-minimal {
-        flex-direction: column;
-        gap: 8px;
-        margin: 18px 0 0 0;
+        flex-direction: row !important;
+        gap: 1vw !important;
+        margin: 2vw 0 0 0 !important;
       }
       .shortcut-btn-minimal {
-        width: 100%;
-        font-size: 0.98rem;
-        padding: 8px 0;
+        width: auto !important;
+        font-size: 1vw !important;
+        padding: 0.7vw 2vw !important;
       }
       #privacy-popup > div {
-        padding: 18px 8px 12px 8px;
-        max-width: 95vw;
+        padding: 2vw 1vw 1vw 1vw !important;
+        max-width: 40vw !important;
       }
-    }
-    @media (max-width: 400px) {
-      .header h1 {
-        font-size: 1.1rem;
+      .header {
+        flex-direction: row !important;
+        padding: 1vw 2vw !important;
       }
-      .artikel-content h3 {
-        font-size: 1.05rem;
+      .logo img {
+        height: 6vw !important;
+        margin-right: 1vw !important;
       }
-      .sidebar,
-      .sidebar.sidebar-kanan {
-        font-size: 0.92rem;
+      .logo-kanan img {
+        max-height: 7vw !important;
+        width: 7vw !important;
       }
-      .monitor-item .value {
-        font-size: 1.3rem;
-      }
-      .monitor-item .label {
-        font-size: 0.95rem;
-      }
-      .monitor-item .unit {
-        font-size: 0.9rem;
+      .navbar ul li a {
+        padding: 1vw 2vw !important;
+        font-size: 1vw !important;
       }
     }
   </style>
