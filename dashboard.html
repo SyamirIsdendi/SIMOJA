@@ -513,18 +513,119 @@
         border-radius: 10px;
       }
     }
-    .logo img {
-      margin-right: 20px;
-      height: 80px;
-      width: auto;
-      transition: height 0.3s;
+    @media (max-width: 600px) {
+      .header {
+        flex-direction: column;
+        padding: 6px 8px;
+      }
+      .logo img {
+        height: 48px;
+        margin-right: 10px;
+      }
+      .logo-kanan img {
+        max-height: 48px;
+        width: 48px;
+      }
+      .navbar ul li a {
+        padding: 8px 10px;
+        font-size: 0.98rem;
+      }
+      .main-layout {
+        flex-direction: column;
+        gap: 0;
+        min-height: unset;
+      }
+      .sidebar,
+      .sidebar.sidebar-kanan {
+        position: static;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        margin: 0 0 16px 0;
+        padding: 10px 6px 10px 6px;
+        font-size: 0.98rem;
+      }
+      .sidebar.sidebar-kiri {
+        display: none;
+      }
+      .content-area {
+        padding: 0 2px;
+      }
+      .card,
+      .card-monitoring {
+        padding: 12px 6px;
+        margin-top: 12px;
+        border-radius: 8px;
+      }
+      .monitor-row {
+        flex-direction: column;
+        gap: 12px;
+      }
+      .monitor-item {
+        min-width: 0;
+        padding: 10px 4px;
+        font-size: 0.98rem;
+      }
+      .maps-container {
+        flex-direction: column;
+        gap: 12px;
+      }
+      .map-item {
+        min-width: 0;
+        max-width: 100%;
+        padding: 8px 2px;
+      }
+      .map-item iframe {
+        height: 180px !important;
+      }
+      .artikel-content {
+        padding: 10px 4px;
+        max-width: 98vw;
+      }
+      .swiper {
+        max-width: 100vw;
+        border-radius: 8px;
+        aspect-ratio: unset;
+        height: 180px;
+      }
+      .swiper-slide img {
+        border-radius: 8px;
+      }
+      .shortcut-beranda-minimal {
+        flex-direction: column;
+        gap: 8px;
+        margin: 18px 0 0 0;
+      }
+      .shortcut-btn-minimal {
+        width: 100%;
+        font-size: 0.98rem;
+        padding: 8px 0;
+      }
+      #privacy-popup > div {
+        padding: 18px 8px 12px 8px;
+        max-width: 95vw;
+      }
     }
-    .logo-kanan img {
-      display: block;
-      max-height: 95px;
-      width: auto;
-      background-color: transparent;
-      border-radius: 15px;
+    @media (max-width: 400px) {
+      .header h1 {
+        font-size: 1.1rem;
+      }
+      .artikel-content h3 {
+        font-size: 1.05rem;
+      }
+      .sidebar,
+      .sidebar.sidebar-kanan {
+        font-size: 0.92rem;
+      }
+      .monitor-item .value {
+        font-size: 1.3rem;
+      }
+      .monitor-item .label {
+        font-size: 0.95rem;
+      }
+      .monitor-item .unit {
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
