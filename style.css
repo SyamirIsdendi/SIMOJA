@@ -50,20 +50,17 @@
 .content {
   padding: 20px;
 }
-<<<<<<< HEAD
 
 .login-container, .register-container {
-      opacity: 0;
-      transform: translateY(40px) scale(0.98);
-      transition: opacity 0.5s cubic-bezier(.4,0,.2,1), transform 0.5s cubic-bezier(.4,0,.2,1);
-    }
-    body.loaded .login-container, body.loaded .register-container {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-    body.unloading .login-container, body.unloading .register-container {
-      opacity: 0;
-      transform: translateY(-40px) scale(0.98);
-    }
-=======
->>>>>>> 10949df5b296dc37b91c43b20417db2484bb34aa
+  opacity: 0;
+  transform: translateY(40px) scale(0.98);
+  transition: opacity 0.5s cubic-bezier(.4,0,.2,1), transform 0.5s cubic-bezier(.4,0,.2,1);
+}
+body.loaded .login-container, body.loaded .register-container {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+body.unloading .login-container, body.unloading .register-container {
+  opacity: 0;
+  transform: translateY(-40px) scale(0.98);
+}
