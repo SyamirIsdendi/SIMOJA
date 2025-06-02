@@ -38,8 +38,38 @@
       font-family: 'Roboto', sans-serif;
       margin: 0;
       padding: 0;
+      min-width: 914.44px;
+      min-height: 712.22px;
       background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
+    .site-fixed-size {
+      width: 914.44px;
+      min-height: 712.22px;
+      max-width: 100vw;
+      max-height: 100vh;
+      background: #f4f4f4;
+      box-shadow: 0 0 24px rgba(0,0,0,0.08);
+      border-radius: 18px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    @media (max-width: 950px), (max-height: 750px) {
+      .site-fixed-size {
+        width: 100vw;
+        min-width: unset;
+        min-height: unset;
+        border-radius: 0;
+      }
+      body {
+        min-width: unset;
+        min-height: unset;
+      }
+    }
+    /* ...existing code... */
     .header {
       background-color: #e0e0e0; /* abu-abu */
       color: #333;
@@ -631,6 +661,7 @@
   </style>
 </head>
 <body>
+    <div class="site-fixed-size">
   <header class="header">
     <div class="logo" style="display: flex; align-items: center; width: 100%; justify-content: space-between;">
       <div style="display: flex; align-items: center;">
@@ -912,5 +943,6 @@
           };
         });
       </script>
-</body>
+    </div>
+  </body>
 </html>
