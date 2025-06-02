@@ -19,6 +19,16 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    body.loaded {
+      opacity: 1;
+    }
+
+    body.unloading {
+      opacity: 0;
     }
 
     .login-container {
@@ -81,40 +91,16 @@
     .register-link {
       margin-top: 20px;
       display: block;
-<<<<<<< HEAD
       color: #e6b800;
-=======
-      color: #1e3a8a;
->>>>>>> 10949df5b296dc37b91c43b20417db2484bb34aa
       font-weight: 700;
       text-decoration: none;
       transition: color 0.3s;
     }
 
     .register-link:hover {
-<<<<<<< HEAD
       color: #f1c40f;
       text-decoration: underline;
     }
-
-    /* Animasi */
-    body {
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-
-    body.loaded {
-      opacity: 1;
-    }
-
-    body.unloading {
-      opacity: 0;
-    }
-=======
-      color: #3c5ed8;
-      text-decoration: underline;
-    }
->>>>>>> 10949df5b296dc37b91c43b20417db2484bb34aa
   </style>
 </head>
 <body>
@@ -151,25 +137,14 @@
 
   <!-- Firebase Configuration -->
   <script>
-<<<<<<< HEAD
-  const firebaseConfig = {
-  apiKey: "AIzaSyDe_WxXPw2OPlkSn1YDhIjeR8Jz4gIedT0",
-  authDomain: "sensor-c6fe3.firebaseapp.com",
-  databaseURL: "https://sensor-c6fe3-default-rtdb.firebaseio.com",
-  projectId: "sensor-c6fe3",
-  storageBucket: "sensor-c6fe3.firebasestorage.app",
-  messagingSenderId: "916474546319",
-  appId: "1:916474546319:web:10f3b52d8c193c4ba2c8fa"
-=======
-   const firebaseConfig = {
-     apiKey: "AIzaSyDe_WxXPw2OPlkSn1YDhIjeR8Jz4gIedT0",
-     authDomain: "sensor-c6fe3.firebaseapp.com",
-     databaseURL: "https://sensor-c6fe3-default-rtdb.firebaseio.com",
-     projectId: "sensor-c6fe3",
-     storageBucket: "sensor-c6fe3.firebasestorage.app",
-     messagingSenderId: "916474546319",
-     appId: "1:916474546319:web:10f3b52d8c193c4ba2c8fa"
->>>>>>> 10949df5b296dc37b91c43b20417db2484bb34aa
+    const firebaseConfig = {
+      apiKey: "AIzaSyDe_WxXPw2OPlkSn1YDhIjeR8Jz4gIedT0",
+      authDomain: "sensor-c6fe3.firebaseapp.com",
+      databaseURL: "https://sensor-c6fe3-default-rtdb.firebaseio.com",
+      projectId: "sensor-c6fe3",
+      storageBucket: "sensor-c6fe3.appspot.com",
+      messagingSenderId: "916474546319",
+      appId: "1:916474546319:web:10f3b52d8c193c4ba2c8fa"
     };
 
     firebase.initializeApp(firebaseConfig);
