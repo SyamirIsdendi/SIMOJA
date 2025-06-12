@@ -834,7 +834,7 @@
 
   <main class="main-layout">
     <div class="content-area">
-      <section id="beranda">
+      <section id="beranda" style="display: block;">
         <div class="beranda-bg"></div>
         <div class="beranda-bg-overlay"></div>
         <div class="beranda-content">
@@ -879,7 +879,7 @@
         </div>
       </section>
 
-      <section id="monitoring" style="display: block;">
+      <section id="monitoring" style="display: none;">
         <h2>Monitoring Kumbung Jamur</h2>
         <div class="card card-monitoring">
           <div class="monitor-row">
@@ -924,8 +924,8 @@
       // --- HISTORI SENSOR HARIAN ---
       const inputTanggal = document.getElementById('tanggal-histori');
       const historiLoading = document.getElementById('histori-loading');
-      // Set default ke hari ini
-      inputTanggal.value = new Date().toISOString().slice(0,10);
+      // Jangan load data otomatis, tunggu user pilih tanggal
+      inputTanggal.value = '';
       inputTanggal.addEventListener('change', loadHistoriSensor);
       // Fungsi ambil data histori harian dari Firebase
       function loadHistoriSensor() {
@@ -969,8 +969,7 @@
         chartArus.update();
         chartRelay.update();
       }
-      // Load histori hari ini saat halaman dibuka
-      loadHistoriSensor();
+      // Jangan load histori hari ini otomatis
       </script>
       </section>
 
