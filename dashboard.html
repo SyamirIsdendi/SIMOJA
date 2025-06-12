@@ -908,27 +908,104 @@
             </div>
           </div>
         </div>
-        <div class="card" style="margin-top:24px;">
-          <h3 style="text-align:center;margin-bottom:18px;">Grafik Monitoring Sensor</h3>
-          <canvas id="chart-suhu" height="80"></canvas>
-          <canvas id="chart-humidity" height="80" style="margin-top:18px;"></canvas>
-          <canvas id="chart-arus" height="80" style="margin-top:18px;"></canvas>
-          <canvas id="chart-relay" height="60" style="margin-top:18px;"></canvas>
-        </div>
+        <div style="margin:18px 0 24px 0;text-align:center;">
+        <label for="tanggal-histori" style="font-weight:600;color:#e67e22;font-size:1.08rem;">Lihat Data Harian:</label>
+        <input type="date" id="tanggal-histori" style="margin-left:10px;padding:6px 12px;border-radius:8px;border:1px solid #e0c68a;font-size:1.05rem;">
+        <span id="histori-loading" style="display:none;margin-left:10px;color:#888;font-size:0.98rem;">Memuat data...</span>
+      </div>
+      <div class="card" style="margin-top:0;">
+        <h3 style="text-align:center;margin-bottom:18px;">Grafik Monitoring Sensor</h3>
+        <canvas id="chart-suhu" height="80"></canvas>
+        <canvas id="chart-humidity" height="80" style="margin-top:18px;"></canvas>
+        <canvas id="chart-arus" height="80" style="margin-top:18px;"></canvas>
+        <canvas id="chart-relay" height="60" style="margin-top:18px;"></canvas>
+      </div>
+      <script>
+      // --- HISTORI SENSOR HARIAN ---
+      const inputTanggal = document.getElementById('tanggal-histori');
+      const historiLoading = document.getElementById('histori-loading');
+      // Set default ke hari ini
+      inputTanggal.value = new Date().toISOString().slice(0,10);
+      inputTanggal.addEventListener('change', loadHistoriSensor);
+      // Fungsi ambil data histori harian dari Firebase
+      function loadHistoriSensor() {
+        const tgl = inputTanggal.value;
+        if (!tgl) return;
+        historiLoading.style.display = 'inline';
+        db.ref('sensor_history/' + tgl).once('value', (snapshot) => {
+          historiLoading.style.display = 'none';
+          const data = snapshot.val();
+          if (!data) {
+            updateChartHistori([], [], [], [], []);
+            alert('Data tidak ditemukan untuk tanggal ini.');
+            return;
+          }
+          // Urutkan berdasarkan waktu
+          const waktuArr = Object.keys(data).sort();
+          const suhuArr = [], humArr = [], arusArr = [], relayArr = [], labelArr = [];
+          waktuArr.forEach(waktu => {
+            const d = data[waktu];
+            labelArr.push(waktu);
+            suhuArr.push(Number(d.suhu));
+            humArr.push(Number(d.humidity));
+            arusArr.push(Number(d.arus));
+            relayArr.push(Number(d.relay));
+          });
+          updateChartHistori(labelArr, suhuArr, humArr, arusArr, relayArr);
+        });
+      }
+      // Fungsi update chart dengan histori
+      function updateChartHistori(labels, suhu, hum, arus, relay) {
+        chartSuhu.data.labels = labels;
+        chartSuhu.data.datasets[0].data = suhu;
+        chartHumidity.data.labels = labels;
+        chartHumidity.data.datasets[0].data = hum;
+        chartArus.data.labels = labels;
+        chartArus.data.datasets[0].data = arus;
+        chartRelay.data.labels = labels;
+        chartRelay.data.datasets[0].data = relay;
+        chartSuhu.update();
+        chartHumidity.update();
+        chartArus.update();
+        chartRelay.update();
+      }
+      // Load histori hari ini saat halaman dibuka
+      loadHistoriSensor();
+      </script>
       </section>
 
       <section id="lokasi" style="display: none;">
-        <h2>Lokasi Kumbung Jamur</h2>
-        <div class="maps-container">
-          <div class="map-item">
-            <h3>Kumbung 1: Istana Jamur</h3>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d249.31528114732433!2d104.06432402056804!3d1.128466372814731!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d989a1fea5227d%3A0xe0cd667354931761!2sIstana%20Jamur!5e0!3m2!1sid!2sus!4v1747798810346!5m2!1sid!2sus" width="100%" height="350" style="border:0; border-radius:12px; margin-bottom:16px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          </div>
-          <div class="map-item">
-            <h3>Kumbung 2: Jl. Tumbuh Subur No.4, Batam</h3>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.024393889019!2d104.0499!3d1.1205!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d988e2e2e2e2e3%3A0x0!2zMcKwMDcnMTQuMCJOIDEwNMKwMDInNTkuNiJF!5e0!3m2!1sid!2sid!4v1747799999999!5m2!1sid!2sid" width="100%" height="250" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div style="text-align:center;margin-bottom:18px;">
+          <h2 style="display:inline-flex;align-items:center;gap:10px;justify-content:center;font-size:2rem;margin-bottom:6px;">
+            <span style="font-size:2.2rem;">📍</span> Lokasi Kumbung Jamur
+          </h2>
+          <div style="max-width:520px;margin:0 auto 10px auto;color:#7a5c1b;font-size:1.08rem;background:rgba(255,251,230,0.85);border-radius:12px;padding:10px 18px;box-shadow:0 2px 8px rgba(241,196,15,0.10);">
+            Berikut adalah lokasi kumbung istana jamur. Klik pada peta untuk memperbesar di Google Maps.
           </div>
         </div>
+        <div class="maps-container" style="background:linear-gradient(120deg,#fffbe6 60%,#f9e7c1 100%);border-radius:18px;padding:18px 0 8px 0;box-shadow:0 4px 18px rgba(241,196,15,0.10);">
+          <div class="map-item lokasi-card" style="transition:box-shadow 0.2s,transform 0.2s;">
+            <h3 style="display:flex;align-items:center;gap:8px;font-size:1.13rem;margin-bottom:8px;">
+              <span style="font-size:1.3rem;">🏠</span> Kumbung 1: Istana Jamur
+              <span style="background:#e67e22;color:#fff;font-size:0.92rem;padding:2px 10px;border-radius:10px;margin-left:8px;">Utama</span>
+            </h3>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d249.31528114732433!2d104.06432402056804!3d1.128466372814731!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d989a1fea5227d%3A0xe0cd667354931761!2sIstana%20Jamur!5e0!3m2!1sid!2us!4v1747798810346!5m2!1sid!2us" width="100%" height="350" style="border:0; border-radius:12px; margin-bottom:16px;box-shadow:0 2px 10px rgba(241,196,15,0.13);transition:box-shadow 0.2s;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+          <div class="map-item lokasi-card" style="transition:box-shadow 0.2s,transform 0.2s;">
+            <h3 style="display:flex;align-items:center;gap:8px;font-size:1.13rem;margin-bottom:8px;">
+              <span style="font-size:1.3rem;">🏡</span> Kumbung 2: Jl. Tumbuh Subur No.4, Batam
+            </h3>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.024393889019!2d104.0499!3d1.1205!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d988e2e2e2e2e3%3A0x0!2zMcKwMDcnMTQuMCJOIDEwNMKwMDInNTkuNiJF!5e0!3m2!1sid!2sid!4v1747799999999!5m2!1sid!2sid" width="100%" height="250" style="border:0; border-radius:12px;box-shadow:0 2px 10px rgba(241,196,15,0.13);transition:box-shadow 0.2s;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+        <style>
+        .lokasi-card:hover {
+          box-shadow: 0 8px 32px rgba(241,196,15,0.18), 0 2px 10px rgba(52,152,219,0.10);
+          transform: translateY(-4px) scale(1.015);
+        }
+        .lokasi-card iframe { opacity:0; animation: fadeinMap 1.2s forwards; }
+        @keyframes fadeinMap { from { opacity:0; } to { opacity:1; } }
+        </style>
       </section>
     </div>
     <aside class="sidebar sidebar-kanan">
