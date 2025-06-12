@@ -790,6 +790,22 @@
   .sidebar-kiri { min-width: 100px; max-width: 140px; display: flex; }
   .logo img, .logo-kanan img { height: 95px !important; }
 }
+.card canvas {
+  width: 100% !important;
+  max-width: 100%;
+  margin: 0 auto;
+  display: block;
+  background: #fffbe6;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(241,196,15,0.07);
+}
+@media (max-width: 600px) {
+  .card canvas {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    min-height: 120px;
+  }
+}
   </style>
 </head>
 <body>
@@ -899,6 +915,13 @@
               <span class="relay-badge" id="relay">--</span>
             </div>
           </div>
+        </div>
+        <div class="card" style="margin-top:24px;">
+          <h3 style="text-align:center;margin-bottom:18px;">Grafik Monitoring Sensor</h3>
+          <canvas id="chart-suhu" height="80"></canvas>
+          <canvas id="chart-humidity" height="80" style="margin-top:18px;"></canvas>
+          <canvas id="chart-arus" height="80" style="margin-top:18px;"></canvas>
+          <canvas id="chart-relay" height="60" style="margin-top:18px;"></canvas>
         </div>
       </section>
 
@@ -1018,43 +1041,146 @@
     });
   </script>
 
-  <style>
-    .shortcut-beranda-minimal {
-      display: flex;
-      gap: 14px;
-      justify-content: center;
-      margin: 28px 0 0 0;
-    }
-    .shortcut-btn-minimal {
-      background: #fffbe6;
-      color: #222;
-      border: 1.5px solid #e0c97a;
-      padding: 9px 22px;
-      border-radius: 18px;
-      font-size: 1.04rem;
-      font-family: 'Roboto', serif;
-      font-weight: 500;
-      cursor: pointer;
-      box-shadow: 0 1px 4px rgba(241,196,15,0.07);
-      transition: background 0.18s, color 0.18s, border 0.18s;
-      display: flex;
-      align-items: center;
-      letter-spacing: 0.5px;
-    }
-    .shortcut-btn-minimal.shortcut-lokasi-minimal {
-      border: 1.5px solid #b2cbe6;
-    }
-    .shortcut-btn-minimal:hover {
-      background: #f1c40f;
-      color: #fff;
-      border-color: #e67e22;
-    }
-    .shortcut-btn-minimal.shortcut-lokasi-minimal:hover {
-      background: #3498db;
-      color: #fff;
-      border-color: #2980b9;
-    }
-  </style>
+  <!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    // Chart.js setup
+const chartLabels = [];
+const maxData = 20;
+const suhuData = [];
+const humidityData = [];
+const arusData = [];
+const relayData = [];
+
+const chartSuhu = new Chart(document.getElementById('chart-suhu').getContext('2d'), {
+  type: 'line',
+  data: {
+    labels: chartLabels,
+    datasets: [{
+      label: 'Suhu (°C)',
+      data: suhuData,
+      borderColor: '#e67e22',
+      backgroundColor: 'rgba(230,126,34,0.08)',
+      fill: true,
+      tension: 0.3,
+      pointRadius: 2,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: true } },
+    scales: { y: { beginAtZero: true } }
+  }
+});
+const chartHumidity = new Chart(document.getElementById('chart-humidity').getContext('2d'), {
+  type: 'line',
+  data: {
+    labels: chartLabels,
+    datasets: [{
+      label: 'Kelembapan (%)',
+      data: humidityData,
+      borderColor: '#3498db',
+      backgroundColor: 'rgba(52,152,219,0.08)',
+      fill: true,
+      tension: 0.3,
+      pointRadius: 2,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: true } },
+    scales: { y: { beginAtZero: true } }
+  }
+});
+const chartArus = new Chart(document.getElementById('chart-arus').getContext('2d'), {
+  type: 'line',
+  data: {
+    labels: chartLabels,
+    datasets: [{
+      label: 'Arus (A)',
+      data: arusData,
+      borderColor: '#27ae60',
+      backgroundColor: 'rgba(39,174,96,0.08)',
+      fill: true,
+      tension: 0.3,
+      pointRadius: 2,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: true } },
+    scales: { y: { beginAtZero: true } }
+  }
+});
+const chartRelay = new Chart(document.getElementById('chart-relay').getContext('2d'), {
+  type: 'line',
+  data: {
+    labels: chartLabels,
+    datasets: [{
+      label: 'Relay (ON=1, OFF=0)',
+      data: relayData,
+      borderColor: '#e74c3c',
+      backgroundColor: 'rgba(231,76,60,0.08)',
+      fill: true,
+      tension: 0.3,
+      pointRadius: 2,
+      stepped: true
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: true } },
+    scales: { y: { beginAtZero: true, max: 1 } }
+  }
+});
+
+function addChartData(label, suhu, humidity, arus, relay) {
+  const now = new Date();
+  const timeLabel = now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0')+':'+now.getSeconds().toString().padStart(2,'0');
+  chartLabels.push(timeLabel);
+  suhuData.push(suhu);
+  humidityData.push(humidity);
+  arusData.push(arus);
+  relayData.push(relay);
+  if (chartLabels.length > maxData) {
+    chartLabels.shift();
+    suhuData.shift();
+    humidityData.shift();
+    arusData.shift();
+    relayData.shift();
+  }
+  chartSuhu.update();
+  chartHumidity.update();
+  chartArus.update();
+  chartRelay.update();
+}
+
+// Listen to Firebase and update chart every time data changes
+let lastSuhu = null, lastHumidity = null, lastArus = null, lastRelay = null;
+function tryAddChart() {
+  if (lastSuhu !== null && lastHumidity !== null && lastArus !== null && lastRelay !== null) {
+    addChartData('', lastSuhu, lastHumidity, lastArus, lastRelay);
+  }
+}
+tempRef.on('value', (snapshot) => {
+  lastSuhu = Number(snapshot.val());
+  tryAddChart();
+});
+humRef.on('value', (snapshot) => {
+  lastHumidity = Number(snapshot.val());
+  tryAddChart();
+});
+arusRef.on('value', (snapshot) => {
+  lastArus = Number(snapshot.val());
+  tryAddChart();
+});
+relayRef.on('value', (snapshot) => {
+  let val = snapshot.val();
+  lastRelay = (val === 1 || val === "1" || val === true || val === "ON") ? 1 : 0;
+  tryAddChart();
+});
+  </script>
 
   <!-- Privacy Policy Popup -->
       <div id="privacy-popup" style="display:none;position:fixed;z-index:9999;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.32);backdrop-filter:blur(1.5px);align-items:center;justify-content:center;">
