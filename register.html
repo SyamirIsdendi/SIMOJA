@@ -15,26 +15,36 @@
     }
 
     body {
-      background: linear-gradient(to right, #fffbe7, #ffe066);
+      background: linear-gradient(120deg, #a05107 100%, #a05107 0%);
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    body.loaded {
+      opacity: 1;
+    }
+
+    body.unloading {
+      opacity: 0;
     }
 
     .register-container {
-      background-color: #fffde4;
-      border: 2px solid #ffe066;
+      background-color: #f5eee6;
       padding: 40px 30px;
       border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 10px 30px rgba(149, 108, 57, 0.13);
       width: 100%;
       max-width: 400px;
       text-align: center;
+      border: 2px solid #a05107;
     }
 
     h2 {
-      color: #bfa100;
+      color: #7c4a1a;
       margin-bottom: 25px;
     }
 
@@ -42,34 +52,45 @@
       width: 100%;
       padding: 12px 15px;
       margin: 10px 0;
-      border: 1.5px solid #ffe066;
+      border: 1.5px solid #a05107;
       border-radius: 10px;
-      background-color: #fffbe7;
       transition: 0.3s;
+      background: #fffbe6;
+      color: #7c4a1a;
+      font-weight: 600;
+    }
+
+    input::placeholder {
+      color: #7c4a1a;
+      font-weight: 600;
+      opacity: 1;
     }
 
     input:focus {
       outline: none;
-      border-color: #ffd600;
-      background-color: #fff9c4;
+      border-color: #7c4a1a;
+      background-color: #a05107;
+      color: #a05107;
     }
 
     button {
       width: 100%;
       padding: 12px;
-      background-color: #ffd600;
-      color: #7a5c00;
+      background-color: #b88c5a;
+      color: #fffbe6;
       font-weight: bold;
-      border: 1.5px solid #ffe066;
+      border: none;
       border-radius: 10px;
       cursor: pointer;
       margin-top: 15px;
       transition: background-color 0.3s;
+      font-size: 1.08rem;
+      box-shadow: 0 2px 8px rgba(149, 108, 57, 0.13);
     }
 
     button:hover {
-      background-color: #ffe066;
-      color: #bfa100;
+      background-color: #7c4a1a;
+      color: #fffbe6;
     }
 
     .error, .success {
@@ -86,28 +107,25 @@
     }
 
     a {
-      display: inline-block;
-      margin-top: 15px;
       color: #bfa100;
-      text-decoration: none;
     }
 
     a:hover {
+      color: #7c4a1a;
+    }
+
+    .login-link {
+      margin-top: 20px;
+      display: block;
+      color: #b88c5a;
+      font-weight: 700;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .login-link:hover {
+      color: #7c4a1a;
       text-decoration: underline;
-    }
-
-    /* Animasi */
-    body {
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-
-    body.loaded {
-      opacity: 1;
-    }
-
-    body.unloading {
-      opacity: 0;
     }
   </style>
 </head>
@@ -129,13 +147,13 @@
 
   <div class="register-container">
     <div style="font-size: 3.5rem; margin-bottom: 10px;">👨‍🌾</div>
-    <h2>Buat Akun Baru</h2>
+    <h2>SIGN UP</h2>
     <input type="email" id="regEmail" placeholder="Email" />
     <input type="password" id="regPassword" placeholder="Password" />
     <button onclick="register()">Register</button>
     <p class="error" id="errorReg"></p>
     <p class="success" id="successReg"></p>
-    <a href="index.html">Sudah punya akun? Login</a>
+    <a href="index.html" class="login-link">Sudah punya akun? Login</a>
   </div>
 
   <!-- Firebase SDK -->
