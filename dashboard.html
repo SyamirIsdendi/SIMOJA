@@ -963,22 +963,22 @@
         <div style="font-size:1.05rem;font-weight:600;margin-bottom:10px;">Introduction Our Team!</div>
         <div class="anggota-tim">
           <div class="anggota-item">
-            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Ketua">
+            <img src="FOTO/FOTO TIM/FARHAN.jpg" alt="Ketua">
             <div style="font-weight:600;">Farhan Arfachrudin</div>
             <div style="font-size:0.97rem;color:#888;">Ketua Kelompok</div>
           </div>
           <div class="anggota-item">
-            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Anggota">
+            <img src="FOTO/FOTO TIM/RAKA.jpg" alt="Anggota">
             <div style="font-weight:600;">M Galih Raka Yanuardi</div>
             <div style="font-size:0.97rem;color:#888;">Anggota</div>
           </div>
           <div class="anggota-item">
-            <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Anggota">
+            <img src="FOTO/FOTO TIM/SYAMIR.jpg" alt="Anggota">
             <div style="font-weight:600;">Syamir Isdendi</div>
             <div style="font-size:0.97rem;color:#888;">Anggota</div>
           </div>
           <div class="anggota-item">
-            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Anggota">
+            <img src="FOTO/FOTO TIM/BAMBANG.jpg" alt="Anggota">
             <div style="font-weight:600;">Bambang Fadhila Yusuf</div>
             <div style="font-size:0.97rem;color:#888;">Anggota</div>
           </div>
@@ -1204,9 +1204,7 @@ relayRef.on('value', (snapshot) => {
       </div>
       <script>
         document.addEventListener('DOMContentLoaded', function() {
-          if (!localStorage.getItem('privacyAccepted')) {
-            document.getElementById('privacy-popup').style.display = 'flex';
-          }
+          // Check if privacy has been accepted
           document.getElementById('privacy-accept').onclick = function() {
             localStorage.setItem('privacyAccepted', 'true');
             document.getElementById('privacy-popup').style.display = 'none';
