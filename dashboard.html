@@ -908,69 +908,13 @@
             </div>
           </div>
         </div>
-        <div style="margin:18px 0 24px 0;text-align:center;">
-        <label for="tanggal-histori" style="font-weight:600;color:#e67e22;font-size:1.08rem;">Lihat Data Harian:</label>
-        <input type="date" id="tanggal-histori" style="margin-left:10px;padding:6px 12px;border-radius:8px;border:1px solid #e0c68a;font-size:1.05rem;">
-        <span id="histori-loading" style="display:none;margin-left:10px;color:#888;font-size:0.98rem;">Memuat data...</span>
-      </div>
-      <div class="card" style="margin-top:0;">
+        <div class="card" style="margin-top:24px;">
         <h3 style="text-align:center;margin-bottom:18px;">Grafik Monitoring Sensor</h3>
         <canvas id="chart-suhu" height="80"></canvas>
         <canvas id="chart-humidity" height="80" style="margin-top:18px;"></canvas>
         <canvas id="chart-arus" height="80" style="margin-top:18px;"></canvas>
         <canvas id="chart-relay" height="60" style="margin-top:18px;"></canvas>
       </div>
-      <script>
-      // --- HISTORI SENSOR HARIAN ---
-      const inputTanggal = document.getElementById('tanggal-histori');
-      const historiLoading = document.getElementById('histori-loading');
-      // Jangan load data otomatis, tunggu user pilih tanggal
-      inputTanggal.value = '';
-      inputTanggal.addEventListener('change', loadHistoriSensor);
-      // Fungsi ambil data histori harian dari Firebase
-      function loadHistoriSensor() {
-        const tgl = inputTanggal.value;
-        if (!tgl) return;
-        historiLoading.style.display = 'inline';
-        db.ref('sensor_history/' + tgl).once('value', (snapshot) => {
-          historiLoading.style.display = 'none';
-          const data = snapshot.val();
-          if (!data) {
-            updateChartHistori([], [], [], [], []);
-            alert('Data tidak ditemukan untuk tanggal ini.');
-            return;
-          }
-          // Urutkan berdasarkan waktu
-          const waktuArr = Object.keys(data).sort();
-          const suhuArr = [], humArr = [], arusArr = [], relayArr = [], labelArr = [];
-          waktuArr.forEach(waktu => {
-            const d = data[waktu];
-            labelArr.push(waktu);
-            suhuArr.push(Number(d.suhu));
-            humArr.push(Number(d.humidity));
-            arusArr.push(Number(d.arus));
-            relayArr.push(Number(d.relay));
-          });
-          updateChartHistori(labelArr, suhuArr, humArr, arusArr, relayArr);
-        });
-      }
-      // Fungsi update chart dengan histori
-      function updateChartHistori(labels, suhu, hum, arus, relay) {
-        chartSuhu.data.labels = labels;
-        chartSuhu.data.datasets[0].data = suhu;
-        chartHumidity.data.labels = labels;
-        chartHumidity.data.datasets[0].data = hum;
-        chartArus.data.labels = labels;
-        chartArus.data.datasets[0].data = arus;
-        chartRelay.data.labels = labels;
-        chartRelay.data.datasets[0].data = relay;
-        chartSuhu.update();
-        chartHumidity.update();
-        chartArus.update();
-        chartRelay.update();
-      }
-      // Jangan load histori hari ini otomatis
-      </script>
       </section>
 
       <section id="lokasi" style="display: none;">
