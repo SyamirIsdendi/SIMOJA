@@ -105,6 +105,31 @@
       color: #f1c40f;
       text-decoration: underline;
     }
+
+    .forgot {
+      text-align: right;
+      margin-top: 8px;
+    }
+
+    .forgot a {
+      color: #b97a1a;
+      text-decoration: underline;
+      font-size: 0.98rem;
+      cursor: pointer;
+    }
+
+    #forgot-box {
+      display: none;
+      margin-top: 10px;
+    }
+
+    #forgot-box input {
+      margin-bottom: 8px;
+    }
+
+    #forgot-box button {
+      background: #e67e22;
+    }
   </style>
 </head>
 <body>
@@ -129,6 +154,13 @@
     <input type="email" id="email" placeholder="Email" />
     <input type="password" id="password" placeholder="Password" />
     <button onclick="login()">Login</button>
+    <div class="forgot" style="text-align:right;margin-top:8px;">
+      <a href="#" onclick="showForgot();return false;" style="color:#b97a1a;text-decoration:underline;font-size:0.98rem;cursor:pointer;">Lupa password?</a>
+    </div>
+    <div id="forgot-box" style="display:none;margin-top:10px;">
+      <input type="email" id="forgot-email" placeholder="Masukkan email Anda" style="margin-bottom:8px;">
+      <button onclick="resetPassword()" style="background:#e67e22;">Kirim Link Reset</button>
+    </div>
     <p class="error" id="errorMsg"></p>
 
     <!-- Link Register -->
@@ -172,6 +204,29 @@
         })
         .catch(error => {
           errorMsg.textContent = "Login gagal: " + error.message;
+        });
+    }
+
+    function showForgot() {
+      document.getElementById('forgot-box').style.display = 'block';
+    }
+
+    function resetPassword() {
+      var email = document.getElementById('forgot-email').value;
+      const errorMsg = document.getElementById('errorMsg');
+      if (!email) {
+        errorMsg.textContent = 'Masukkan email Anda.';
+        errorMsg.style.color = '#e74c3c';
+        return;
+      }
+      firebase.auth().sendPasswordResetEmail(email)
+        .then(() => {
+          errorMsg.style.color = '#27ae60';
+          errorMsg.textContent = 'Link reset password sudah dikirim ke email Anda.';
+        })
+        .catch(err => {
+          errorMsg.style.color = '#e74c3c';
+          errorMsg.textContent = err.message;
         });
     }
   </script>
