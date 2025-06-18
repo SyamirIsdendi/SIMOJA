@@ -208,30 +208,52 @@
     .swiper {
       width: 690px;
       max-width: 100vw;
-      aspect-ratio: unset;
       height: 510px;
       margin: 32px auto 0 auto;
       border-radius: 18px;
       box-shadow: 0 4px 16px rgba(0,0,0,0.08);
       background: #fff;
+      overflow: hidden;
+    }
+    .swiper-wrapper {
+      width: 100% !important;
+      height: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
     }
     .swiper-slide {
+      width: 100% !important;
+      height: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: hidden;
+      box-sizing: border-box;
       display: flex;
       align-items: center;
       justify-content: center;
       background: #f9f9f9;
       border-radius: 18px;
-      overflow: hidden;
     }
     .swiper-slide img {
-      width: 690px;
-      height: 510px;
-      max-width: 100vw;
-      max-height: 100vh;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       border-radius: 18px;
       display: block;
       margin: 0 auto;
+    }
+    @media (max-width: 700px) {
+      .swiper {
+        width: 100vw;
+        height: 180px;
+        max-width: 100vw;
+      }
+      .swiper-slide img {
+        width: 100vw;
+        height: 180px;
+        max-width: 100vw;
+        max-height: 180px;
+      }
     }
     /* Overlay background for Beranda */
     #beranda {
@@ -1014,6 +1036,7 @@
         },
         slidesPerView: 1,
         spaceBetween: 0,
+        centeredSlides: false,
       });
     });
   </script>
