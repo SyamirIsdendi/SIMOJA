@@ -76,6 +76,21 @@
       padding: 10px 20px;
       display: flex;
       align-items: center;
+      /* Hapus border-bottom, biarkan navbar yang punya garis */
+      box-sizing: border-box;
+      width: 100%;
+      margin: 0;
+      border-radius: 0;
+    }
+    .site-fixed-size > .header {
+      border-radius: 18px 18px 0 0;
+      width: 100%;
+      margin: 0;
+    }
+    @media (max-width: 575.98px) {
+      .site-fixed-size > .header {
+        border-radius: 0;
+      }
     }
     .logo img {
       margin-right: 15px;
@@ -84,10 +99,16 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      width: 100%;
+      width: calc(100% - 48px);
+      max-width: 100%;
       background-color: #f39c12;
       box-shadow: 0 2px 8px rgba(0,0,0,0.06);
       transition: box-shadow 0.2s;
+      border-radius: 0 0 18px 18px;
+      margin: 0 auto;
+      left: 0;
+      right: 0;
+      display: block;
     }
     .navbar ul {
       list-style-type: none;
@@ -414,6 +435,8 @@
       color: #333;
       line-height: 1.7;
       margin: 0;
+      text-align: justify;
+      text-justify: inter-word;
     }
     /* Anggota Tim Styles */
     .anggota-tim {
@@ -844,7 +867,7 @@
       </div>
       <div class="logo-kanan" style="display: flex; gap: 18px; align-items: center;">
         <img src="FOTO/FOTO LOGO/LOGO POLIBATAM.png" alt="Polibatam" style="height: 95px; width: auto; background-color: transparent; border-radius: 15px; display: block;">
-        <img src="FOTO/FOTO LOGO/LOGO TUTWURIHANDAYANI.png" alt="Tut Wuri Handayani" height="95" style="width: 80px; background-color: transparent; border-radius: 15px;">
+        <img src="FOTO/FOTO LOGO/LOGO TUTWURIHANDAYANI.png" alt="Tut Wuri Handayani" height="95" style="width: 150px; background-color: transparent; border-radius: 15px;">
         <img src="FOTO/FOTO LOGO/LOGO INSTRUMEN.png" alt="Logo Instrumen" height="80" style="width: 80px; background-color: transparent; border-radius: 10px;">
       </div>
     </div>
@@ -948,7 +971,7 @@
       <section id="lokasi" style="display: none;">
         <div style="text-align:center;margin-bottom:18px;">
           <h2 style="display:inline-flex;align-items:center;gap:10px;justify-content:center;font-size:2rem;margin-bottom:6px;">
-            <span style="font-size:2.2rem;">📍</span> Lokasi Kumbung Jamur
+            <span style="font-size:2.2rem;"></span> Lokasi Kumbung Jamur
           </h2>
           <div style="max-width:520px;margin:0 auto 10px auto;color:#7a5c1b;font-size:1.08rem;background:rgba(255,251,230,0.85);border-radius:12px;padding:10px 18px;box-shadow:0 2px 8px rgba(241,196,15,0.10);">
             Berikut adalah lokasi kumbung istana jamur. Klik pada peta untuk memperbesar di Google Maps.
@@ -957,16 +980,16 @@
         <div class="maps-container" style="background:linear-gradient(120deg,#fffbe6 60%,#f9e7c1 100%);border-radius:18px;padding:18px 0 8px 0;box-shadow:0 4px 18px rgba(241,196,15,0.10);">
           <div class="map-item lokasi-card" style="transition:box-shadow 0.2s,transform 0.2s;">
             <h3 style="display:flex;align-items:center;gap:8px;font-size:1.13rem;margin-bottom:8px;">
-              <span style="font-size:1.3rem;">🏠</span> Kumbung 1: Istana Jamur
+              <span style="font-size:1.3rem;"></span> Kumbung 1: Istana Jamur
               <span style="background:#e67e22;color:#fff;font-size:0.92rem;padding:2px 10px;border-radius:10px;margin-left:8px;">Utama</span>
             </h3>
             <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d249.31528114732433!2d104.06432402056804!3d1.128466372814731!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d989a1fea5227d%3A0xe0cd667354931761!2sIstana%20Jamur!5e0!3m2!1sid!2us!4v1747798810346!5m2!1sid!2us" width="100%" height="350" style="border:0; border-radius:12px; margin-bottom:16px;box-shadow:0 2px 10px rgba(241,196,15,0.13);transition:box-shadow 0.2s;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
           <div class="map-item lokasi-card" style="transition:box-shadow 0.2s,transform 0.2s;">
             <h3 style="display:flex;align-items:center;gap:8px;font-size:1.13rem;margin-bottom:8px;">
-              <span style="font-size:1.3rem;">🏡</span> Kumbung 2: Jl. Tumbuh Subur No.4, Batam
+              <span style="font-size:1.3rem;"></span> Kumbung 2: Jl. Tumbuh Subur No.4, Batam
             </h3>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.024393889019!2d104.0499!3d1.1205!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d988e2e2e2e2e3%3A0x0!2zMcKwMDcnMTQuMCJOIDEwNMKwMDInNTkuNiJF!5e0!3m2!1sid!2sid!4v1747799999999!5m2!1sid!2sid" width="100%" height="250" style="border:0; border-radius:12px;box-shadow:0 2px 10px rgba(241,196,15,0.13);transition:box-shadow 0.2s;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d249.31528114732433!2d104.06432402056804!3d1.128466372814731!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d989a1fea5227d%3A0xe0cd667354931761!2sIstana%20Jamur!5e0!3m2!1sid!2us!4v1747798810346!5m2!1sid!2us" width="100%" height="250" style="border:0; border-radius:12px;box-shadow:0 2px 10px rgba(241,196,15,0.13);transition:box-shadow 0.2s;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
         <style>
