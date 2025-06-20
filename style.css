@@ -11,11 +11,12 @@ body {
   min-height: 100vh;
   display: flex;
   justify-content: center;
+  align-items: flex-start;
 }
 
 .site-fixed-size {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1200px; /* Suitable for laptops */
   min-height: 100vh;
   background: #f4f4f4;
   margin: 16px auto;
@@ -31,6 +32,7 @@ body {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  gap: 12px;
 }
 
 .logo {
@@ -40,9 +42,15 @@ body {
 }
 
 .logo-img {
-  max-height: 60px;
+  max-height: 80px; /* Larger for laptops */
   width: auto;
   border-radius: 8px;
+}
+
+.logo-kanan {
+  display: flex;
+  gap: 12px;
+  align-items: center;
 }
 
 .navbar {
@@ -51,12 +59,14 @@ body {
   top: 0;
   z-index: 100;
   padding: 8px 0;
+  width: 100%;
 }
 
 .navbar ul {
   list-style: none;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .navbar ul li a {
@@ -64,6 +74,7 @@ body {
   color: white;
   text-decoration: none;
   font-weight: 500;
+  font-size: 1rem;
 }
 
 .navbar ul li a:hover {
@@ -74,21 +85,25 @@ body {
   display: flex;
   gap: 24px;
   padding: 16px;
+  flex-wrap: wrap; /* Allow wrapping if needed */
 }
 
 .content-area {
-  flex: 1;
+  flex: 3; /* Take more space than sidebar */
+  min-width: 0;
 }
 
 .sidebar {
-  min-width: 200px;
-  max-width: 250px;
+  flex: 1;
+  min-width: 220px;
+  max-width: 280px;
   background: #fffbe6;
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 2px 8px rgba(241,196,15,0.1);
   position: sticky;
   top: 16px;
+  height: fit-content;
 }
 
 .sidebar h3 {
@@ -104,6 +119,9 @@ body {
 .sidebar ul li a {
   color: #333;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .sidebar ul li a:hover {
@@ -127,11 +145,16 @@ body {
 
 .monitor-item {
   flex: 1;
-  min-width: 120px;
+  min-width: 140px;
   background: #fff;
   padding: 12px;
   border-radius: 8px;
   text-align: center;
+}
+
+.monitor-item .icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
 }
 
 .monitor-item .value {
@@ -142,6 +165,12 @@ body {
 .monitor-item.suhu .value { color: #e67e22; }
 .monitor-item.humidity .value { color: #3498db; }
 .monitor-item.arus .value { color: #27ae60; }
+.monitor-item.relay .relay-badge {
+  padding: 6px 18px;
+  border-radius: 20px;
+  font-weight: bold;
+  color: #fff;
+}
 .monitor-item.relay .relay-badge.on { background: #27ae60; }
 .monitor-item.relay .relay-badge.off { background: #e74c3c; }
 
@@ -149,22 +178,32 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
+  padding: 16px 0;
 }
 
 .map-item {
   flex: 1;
-  min-width: 280px;
+  min-width: 300px;
   padding: 12px;
   background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(241,196,15,0.1);
+}
+
+.map-item iframe {
+  width: 100%;
+  height: 300px; /* Adjusted for laptops */
+  border: 0;
   border-radius: 8px;
 }
 
 .swiper {
   width: 100%;
   max-width: 800px;
-  height: 400px;
+  height: 400px; /* Suitable for laptops */
   margin: 16px auto;
   border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
 }
 
 .swiper-slide img {
@@ -178,8 +217,15 @@ body {
   background: #fff;
   padding: 20px;
   border-radius: 12px;
-  max-width: 600px;
+  max-width: 700px; /* Slightly wider for laptops */
   margin: 16px auto;
+  text-align: justify;
+}
+
+.artikel-content h3 {
+  color: #e67e22;
+  font-size: 1.4rem;
+  margin-bottom: 16px;
 }
 
 .barcode-section {
@@ -195,8 +241,18 @@ body {
 }
 
 .barcode-img {
-  max-width: 150px;
+  max-width: 180px;
   width: 100%;
+}
+
+.card canvas {
+  width: 100% !important;
+  max-width: 100%;
+  height: 300px !important; /* Suitable for laptops */
+  margin: 16px auto;
+  display: block;
+  background: #fffbe6;
+  border-radius: 8px;
 }
 
 #privacy-popup {
@@ -209,13 +265,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 9999;
 }
 
 #privacy-popup > div {
   background: #fffbe6;
   padding: 20px;
   border-radius: 12px;
-  max-width: 90%;
+  max-width: 500px;
   text-align: center;
 }
 
@@ -226,18 +283,21 @@ body {
   padding: 10px 20px;
   border-radius: 8px;
   cursor: pointer;
+  font-weight: 600;
 }
 
-/* Media Queries */
+/* Mobile Styles */
 @media (max-width: 767px) {
   .site-fixed-size {
     margin: 0;
     border-radius: 0;
+    width: 100vw;
   }
 
   .header {
     flex-direction: column;
     gap: 8px;
+    padding: 8px;
   }
 
   .logo-img {
@@ -249,13 +309,20 @@ body {
     text-align: center;
   }
 
+  .navbar ul li a {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
   .main-layout {
     flex-direction: column;
+    padding: 8px;
   }
 
   .sidebar {
     position: static;
     max-width: 100%;
+    min-width: 0;
   }
 
   .swiper {
@@ -269,10 +336,33 @@ body {
   .card canvas {
     height: 200px !important;
   }
+
+  .artikel-content {
+    max-width: 95vw;
+    padding: 12px;
+  }
+
+  .monitor-item {
+    min-width: 100px;
+  }
 }
 
+/* Laptop and Tablet Styles */
 @media (min-width: 768px) {
   .site-fixed-size {
-    width: 90%;
-  }
+    width: 90%;
+    max-width: 1200px;
+  }
+
+  .main-layout {
+    flex-direction: row;
+  }
+
+  .content-area {
+    flex: 3;
+  }
+
+  .sidebar {
+    flex: 1;
+  }
 }
