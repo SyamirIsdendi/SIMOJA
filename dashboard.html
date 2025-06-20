@@ -160,42 +160,43 @@
           </div>
         </section>
       </div>
-      <aside class="sidebar sidebar-kanan">
-        <h3>Ikuti Sosial Media</h3>
-        <ul>
-          <li><a href="https://www.instagram.com/istanajamur_cafebilitas/" target="_blank" rel="noopener">istanajamur_cafebilitas</a></li>
-          <li><a href="https://www.instagram.com/simokti.pkmpi/" target="_blank" rel="noopener">simokti.pkmpi</a></li>
-          <li><a href="https://www.instagram.com/instrumentasi_polibatam/" target="_blank" rel="noopener">instrumentasi_polibatam</a></li>
-          <li><a href="https://www.instagram.com/polibatamofficial/" target="_blank" rel="noopener">polibatamofficial</a></li>
-        </ul>
-        <hr>
-        <div>Introduction Our Team!</div>
-        <div class="anggota-tim">
-          <div class="anggota-item">
-            <img src="FOTO/FOTO TIM/FARHAN.jpg" alt="Ketua">
-            <div>Farhan Arfachrudin</div>
-            <div>Ketua Kelompok</div>
-          </div>
-          <div class="anggota-item">
-            <img src="FOTO/FOTO TIM/RAKA.jpg" alt="Anggota">
-            <div>M Galih Raka Yanuardi</div>
-            <div>Anggota</div>
-          </div>
-          <div class="anggota-item">
-            <img src="FOTO/FOTO TIM/SYAMIR.jpg" alt="Anggota">
-            <div>Syamir Isdendi</div>
-            <div>Anggota</div>
-          </div>
-          <div class="anggota-item">
-            <img src="FOTO/FOTO TIM/BAMBANG.jpg" alt="Anggota">
-            <div>Bambang Fadhila Yusuf</div>
-            <div>Anggota</div>
-          </div>
-        </div>
-        <hr>
-        <div>Dashboard Monitoring Kumbung Jamur<br>v1.0</div>
-      </aside>
     </main>
+    <!-- SIDEBAR DIPINDAH KE BAWAH -->
+    <footer class="sidebar sidebar-bawah">
+      <h3>Ikuti Sosial Media</h3>
+      <ul>
+        <li><a href="https://www.instagram.com/istanajamur_cafebilitas/" target="_blank" rel="noopener">istanajamur_cafebilitas</a></li>
+        <li><a href="https://www.instagram.com/simokti.pkmpi/" target="_blank" rel="noopener">simokti.pkmpi</a></li>
+        <li><a href="https://www.instagram.com/instrumentasi_polibatam/" target="_blank" rel="noopener">instrumentasi_polibatam</a></li>
+        <li><a href="https://www.instagram.com/polibatamofficial/" target="_blank" rel="noopener">polibatamofficial</a></li>
+      </ul>
+      <hr>
+      <div>Introduction Our Team!</div>
+      <div class="anggota-tim">
+        <div class="anggota-item">
+          <img src="FOTO/FOTO TIM/FARHAN.jpg" alt="Ketua">
+          <div>Farhan Arfachrudin</div>
+          <div>Ketua Kelompok</div>
+        </div>
+        <div class="anggota-item">
+          <img src="FOTO/FOTO TIM/RAKA.jpg" alt="Anggota">
+          <div>M Galih Raka Yanuardi</div>
+          <div>Anggota</div>
+        </div>
+        <div class="anggota-item">
+          <img src="FOTO/FOTO TIM/SYAMIR.jpg" alt="Anggota">
+          <div>Syamir Isdendi</div>
+          <div>Anggota</div>
+        </div>
+        <div class="anggota-item">
+          <img src="FOTO/FOTO TIM/BAMBANG.jpg" alt="Anggota">
+          <div>Bambang Fadhila Yusuf</div>
+          <div>Anggota</div>
+        </div>
+      </div>
+      <hr>
+      <div>Dashboard Monitoring Kumbung Jamur<br>v1.0</div>
+    </footer>
 
     <div id="privacy-popup">
       <div>
@@ -230,8 +231,203 @@
       document.getElementById(id).style.display = 'block';
     }
 
-    // Firebase and Chart.js scripts remain unchanged
-    // ... (include the existing Firebase and Chart.js scripts from the original file)
+    // --- Firebase Monitoring & Chart.js ---
+    // Pastikan sudah ada firebase.initializeApp dan const db = firebase.database(); di atas
+    // Data monitoring
+    function updateMonitoringUI(data) {
+      document.getElementById('temp').textContent = data.suhu || '--';
+      document.getElementById('humidity').textContent = data.humidity || '--';
+      document.getElementById('current').textContent = data.arus || '--';
+      document.getElementById('relay').textContent = (data.relay === 1 || data.relay === '1' || data.relay === true) ? 'ON' : 'OFF';
+      document.getElementById('relay').className = 'relay-badge ' + ((data.relay === 1 || data.relay === '1' || data.relay === true) ? 'on' : 'off');
+    }
+    // Firebase realtime update
+    const tempRef = db.ref("sensor/suhu");
+    const humRef = db.ref("sensor/humidity");
+    const arusRef = db.ref("sensor/arus");
+    const relayRef = db.ref("relayStatus");
+
+    tempRef.on('value', (snapshot) => {
+      document.getElementById("temp").textContent = snapshot.val();
+    });
+
+    humRef.on('value', (snapshot) => {
+      document.getElementById("humidity").textContent = snapshot.val();
+    });
+
+    arusRef.on('value', (snapshot) => {
+      document.getElementById("current").textContent = snapshot.val();
+    });
+
+    relayRef.on('value', (snapshot) => {
+      const val = snapshot.val();
+      let status = val;
+      let badge = document.getElementById("relay");
+      badge.classList.remove("on", "off");
+      if (val === 1 || val === "1" || val === true || val === "ON") {
+        status = "ON";
+        badge.classList.add("on");
+      } else if (val === 0 || val === "0" || val === false || val === "OFF") {
+        status = "OFF";
+        badge.classList.add("off");
+      }
+      badge.textContent = status;
+    });
+
+    // Chart.js setup
+    const chartLabels = [];
+    const maxData = 20;
+    const suhuData = [];
+    const humidityData = [];
+    const arusData = [];
+    const relayData = [];
+
+    const chartSuhu = new Chart(document.getElementById('chart-suhu').getContext('2d'), {
+      type: 'line',
+      data: {
+        labels: chartLabels,
+        datasets: [{
+          label: 'Suhu (°C)',
+          data: suhuData,
+          borderColor: '#e67e22',
+          backgroundColor: 'rgba(230,126,34,0.08)',
+          fill: true,
+          tension: 0.3,
+          pointRadius: 2,
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: true } },
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 40,
+            ticks: {
+              stepSize: 5,
+              callback: function(value) {
+                return [0,5,10,15,20,25,30,35,40].includes(value) ? value : '';
+              }
+            }
+          }
+        }
+      }
+    });
+    const chartHumidity = new Chart(document.getElementById('chart-humidity').getContext('2d'), {
+      type: 'line',
+      data: {
+        labels: chartLabels,
+        datasets: [{
+          label: 'Kelembapan (%)',
+          data: humidityData,
+          borderColor: '#3498db',
+          backgroundColor: 'rgba(52,152,219,0.08)',
+          fill: true,
+          tension: 0.3,
+          pointRadius: 2,
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: true } },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 5
+            }
+          }
+        }
+      }
+    });
+    const chartArus = new Chart(document.getElementById('chart-arus').getContext('2d'), {
+      type: 'line',
+      data: {
+        labels: chartLabels,
+        datasets: [{
+          label: 'Arus (A)',
+          data: arusData,
+          borderColor: '#27ae60',
+          backgroundColor: 'rgba(39,174,96,0.08)',
+          fill: true,
+          tension: 0.3,
+          pointRadius: 2,
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: true } },
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+    const chartRelay = new Chart(document.getElementById('chart-relay').getContext('2d'), {
+      type: 'line',
+      data: {
+        labels: chartLabels,
+        datasets: [{
+          label: 'Relay (ON=1, OFF=0)',
+          data: relayData,
+          borderColor: '#e74c3c',
+          backgroundColor: 'rgba(231,76,60,0.08)',
+          fill: true,
+          tension: 0.3,
+          pointRadius: 2,
+          stepped: true
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: true } },
+        scales: { y: { beginAtZero: true, max: 1 } }
+      }
+    });
+
+    function addChartData(label, suhu, humidity, arus, relay) {
+      const now = new Date();
+      const timeLabel = now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0')+':'+now.getSeconds().toString().padStart(2,'0');
+      chartLabels.push(timeLabel);
+      suhuData.push(suhu);
+      humidityData.push(humidity);
+      arusData.push(arus);
+      relayData.push(relay);
+      if (chartLabels.length > maxData) {
+        chartLabels.shift();
+        suhuData.shift();
+        humidityData.shift();
+        arusData.shift();
+        relayData.shift();
+      }
+      chartSuhu.update();
+      chartHumidity.update();
+      chartArus.update();
+      chartRelay.update();
+    }
+
+    // Listen to Firebase and update chart every time data changes
+    let lastSuhu = null, lastHumidity = null, lastArus = null, lastRelay = null;
+    function tryAddChart() {
+      if (lastSuhu !== null && lastHumidity !== null && lastArus !== null && lastRelay !== null) {
+        addChartData('', lastSuhu, lastHumidity, lastArus, lastRelay);
+      }
+    }
+    tempRef.on('value', (snapshot) => {
+      lastSuhu = Number(snapshot.val());
+      tryAddChart();
+    });
+    humRef.on('value', (snapshot) => {
+      lastHumidity = Number(snapshot.val());
+      tryAddChart();
+    });
+    arusRef.on('value', (snapshot) => {
+      lastArus = Number(snapshot.val());
+      tryAddChart();
+    });
+    relayRef.on('value', (snapshot) => {
+      let val = snapshot.val();
+      lastRelay = (val === 1 || val === "1" || val === true || val === "ON") ? 1 : 0;
+      tryAddChart();
+    });
   </script>
 </body>
 </html>
