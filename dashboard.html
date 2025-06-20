@@ -852,7 +852,8 @@
   .card canvas {
     margin-top: 10px !important;
     margin-bottom: 10px !important;
-    min-height: 120px;
+    min-height: 220px;
+    height: 220px !important;
   }
 }
   </style>
@@ -1141,8 +1142,8 @@ const chartSuhu = new Chart(document.getElementById('chart-suhu').getContext('2d
         max: 40,
         ticks: {
           stepSize: 5,
+          autoSkip: false,
           callback: function(value) {
-            // Hanya tampilkan label di kelipatan 5
             return [0,5,10,15,20,25,30,35,40].includes(value) ? value : '';
           }
         }
