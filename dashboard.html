@@ -73,7 +73,7 @@
     .header {
       background-color: #e0e0e0; /* abu-abu */
       color: #333;
-      padding: 10px 20px;
+      padding: 10px 15px;
       display: flex;
       align-items: center;
       /* Hapus border-bottom, biarkan navbar yang punya garis */
@@ -83,7 +83,7 @@
       border-radius: 0;
     }
     .site-fixed-size > .header {
-      border-radius: 18px 18px 0 0;
+      border-radius: 0px 0px 0 0;
       width: 100%;
       margin: 0;
     }
@@ -99,13 +99,13 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      width: calc(100% - 48px);
-      max-width: 100%;
+      width: 100%;
+      max-width: 95.5%;
       background-color: #f39c12;
       box-shadow: 0 2px 8px rgba(0,0,0,0.06);
       transition: box-shadow 0.2s;
-      border-radius: 0 0 18px 18px;
-      margin: 0 auto;
+      border-radius: 0 0 0px 0px;
+      margin: 0;
       left: 0;
       right: 0;
       display: block;
@@ -1134,7 +1134,20 @@ const chartSuhu = new Chart(document.getElementById('chart-suhu').getContext('2d
   options: {
     responsive: true,
     plugins: { legend: { display: true } },
-    scales: { y: { beginAtZero: true } }
+    scales: {
+      y: {
+        beginAtZero: true,
+        min: 0,
+        max: 40,
+        ticks: {
+          stepSize: 5,
+          callback: function(value) {
+            // Hanya tampilkan label di kelipatan 5
+            return [0,5,10,15,20,25,30,35,40].includes(value) ? value : '';
+          }
+        }
+      }
+    }
   }
 });
 const chartHumidity = new Chart(document.getElementById('chart-humidity').getContext('2d'), {
@@ -1154,7 +1167,14 @@ const chartHumidity = new Chart(document.getElementById('chart-humidity').getCon
   options: {
     responsive: true,
     plugins: { legend: { display: true } },
-    scales: { y: { beginAtZero: true } }
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          stepSize: 5
+        }
+      }
+    }
   }
 });
 const chartArus = new Chart(document.getElementById('chart-arus').getContext('2d'), {
