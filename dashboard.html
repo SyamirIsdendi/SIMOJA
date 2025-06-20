@@ -138,6 +138,19 @@
       margin-top: 20px;
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      overflow-x: auto;
+    }
+    .card canvas {
+      width: 100% !important;
+      max-width: 100%;
+      min-width: 320px;
+      height: 320px !important;
+      min-height: 220px;
+      margin: 0 auto 18px auto;
+      display: block;
+      background: #fffbe6;
+      border-radius: 10px;
+      box-shadow: 0 1px 4px rgba(241,196,15,0.07);
     }
     .card-monitoring {
       background: linear-gradient(135deg, #fffbe6 0%, #f9f9f9 100%);
@@ -1142,7 +1155,7 @@ const chartSuhu = new Chart(document.getElementById('chart-suhu').getContext('2d
         max: 40,
         ticks: {
           stepSize: 5,
-          autoSkip: false,
+          // autoSkip: false, // Hapus agar Chart.js auto menyesuaikan label di mobile
           callback: function(value) {
             return [0,5,10,15,20,25,30,35,40].includes(value) ? value : '';
           }
