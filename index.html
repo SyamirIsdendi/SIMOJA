@@ -168,8 +168,14 @@
       <img src="FOTO/FOTO LOGO/simojapng.png" alt="Logo SIMOJA" style="width:70px;height:70px;border-radius:16px;box-shadow:0 2px 8px rgba(160,81,7,0.13);object-fit:cover;">
     </div>
     <h2>SIGN IN</h2>
+    <div class="welcome-text" style="margin-bottom:18px;font-size:1.08rem;color:#a05107;font-weight:600;">Selamat datang <span aria-label="senyum" title="senyum">😊</span></div>
     <input type="email" id="email" placeholder="Email" />
-    <input type="password" id="password" placeholder="Password" />
+    <div style="position:relative;">
+      <input type="password" id="password" placeholder="Password" style="padding-right:38px;" />
+      <span id="togglePassword" style="position:absolute;top:50%;right:12px;transform:translateY(-50%);cursor:pointer;font-size:1.2rem;color:#a05107;display:block;">
+        <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24"><path stroke="#a05107" stroke-width="2" d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12Z"/><circle cx="12" cy="12" r="3" stroke="#a05107" stroke-width="2"/></svg>
+      </span>
+    </div>
     <button onclick="login()">Login</button>
     <div class="forgot" style="text-align:right;margin-top:8px;">
       <a href="#" onclick="showForgot();return false;" style="color:#b97a1a;text-decoration:underline;font-size:0.98rem;cursor:pointer;">Lupa password?</a>
@@ -246,6 +252,22 @@
           errorMsg.textContent = err.message;
         });
     }
+
+    // Show/hide password icon logic
+    const passwordInput = document.getElementById('password');
+    const togglePassword = document.getElementById('togglePassword');
+    const eyeIcon = document.getElementById('eyeIcon');
+    // Ikon mata selalu tampil
+    togglePassword.style.display = 'block';
+    togglePassword.addEventListener('click', function() {
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        eyeIcon.innerHTML = '<path stroke="#a05107" stroke-width="2" d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12Z"/><circle cx="12" cy="12" r="3" stroke="#a05107" stroke-width="2"/><line x1="4" y1="20" x2="20" y2="4" stroke="#a05107" stroke-width="2"/>';
+      } else {
+        passwordInput.type = 'password';
+        eyeIcon.innerHTML = '<path stroke="#a05107" stroke-width="2" d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12Z"/><circle cx="12" cy="12" r="3" stroke="#a05107" stroke-width="2"/>';
+      }
+    });
   </script>
 </body>
 </html>
