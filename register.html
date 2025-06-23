@@ -124,6 +124,30 @@
       color: #f1c40f;
       text-decoration: underline;
     }
+
+    .welcome-text {
+      margin-bottom: 18px;
+      font-size: 1.08rem;
+      color: #a05107;
+      font-weight: 600;
+    }
+
+    /* Tambahan untuk ikon mata */
+    .password-container {
+      position: relative;
+      width: 100%;
+    }
+
+    .toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: #a05107;
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -164,8 +188,14 @@
       <img src="FOTO/FOTO LOGO/simoja.jpg" alt="Logo Simoja" style="width: 70px; height: 70px; object-fit: cover; border-radius: 50%; box-shadow: 0 2px 8px rgba(149, 108, 57, 0.13);">
     </div>
     <h2>SIGN UP</h2>
+    <div class="welcome-text" style="margin-bottom:18px;font-size:1.08rem;color:#a05107;font-weight:600;">Selamat datang <span aria-label="senyum" title="senyum">😊</span></div>
     <input type="email" id="regEmail" placeholder="Email" />
-    <input type="password" id="regPassword" placeholder="Password" />
+    <div style="position:relative;">
+      <input type="password" id="regPassword" placeholder="Password" style="padding-right:38px;" />
+      <span id="toggleRegPassword" style="position:absolute;top:50%;right:12px;transform:translateY(-50%);cursor:pointer;font-size:1.2rem;color:#a05107;display:block;">
+        <svg id="eyeRegIcon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24"><path stroke="#a05107" stroke-width="2" d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12Z"/><circle cx="12" cy="12" r="3" stroke="#a05107" stroke-width="2"/></svg>
+      </span>
+    </div>
     <button onclick="register()">Register</button>
     <p class="error" id="errorReg"></p>
     <p class="success" id="successReg"></p>
@@ -215,6 +245,22 @@
           errorReg.textContent = "Registrasi anda gagal: " + error.message;
         });
     }
+
+    // Show/hide password icon logic for register
+    const regPasswordInput = document.getElementById('regPassword');
+    const toggleRegPassword = document.getElementById('toggleRegPassword');
+    const eyeRegIcon = document.getElementById('eyeRegIcon');
+    // Ikon mata selalu tampil
+    toggleRegPassword.style.display = 'block';
+    toggleRegPassword.addEventListener('click', function() {
+      if (regPasswordInput.type === 'password') {
+        regPasswordInput.type = 'text';
+        eyeRegIcon.innerHTML = '<path stroke="#a05107" stroke-width="2" d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12Z"/><circle cx="12" cy="12" r="3" stroke="#a05107" stroke-width="2"/><line x1="4" y1="20" x2="20" y2="4" stroke="#a05107" stroke-width="2"/>';
+      } else {
+        regPasswordInput.type = 'password';
+        eyeRegIcon.innerHTML = '<path stroke="#a05107" stroke-width="2" d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12Z"/><circle cx="12" cy="12" r="3" stroke="#a05107" stroke-width="2"/>';
+      }
+    });
   </script>
 </body>
 </html>
