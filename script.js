@@ -4,6 +4,7 @@ function login() {
 
   firebase.auth().signInWithEmailAndPassword(email, password)
     .then(() => {
+      localStorage.removeItem('privacyAccepted'); // Reset agar popup muncul setelah login
       window.location.href = "dashboard.html";
     })
     .catch(error => {
