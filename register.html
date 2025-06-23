@@ -15,7 +15,8 @@
     }
 
     body {
-      background: linear-gradient(120deg, #a05107 100%, #a05107 0%);
+      background: url('FOTO/FOTO LOGO/BACKGROUND.jpg') no-repeat center center fixed;
+      background-size: cover;
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -33,10 +34,10 @@
     }
 
     .register-container {
-      background-color: #f5eee6;
+      background-color: #fffbe6;
       padding: 40px 30px;
       border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(149, 108, 57, 0.13);
+      box-shadow: 0 10px 30px rgba(241,196,15,0.13);
       width: 100%;
       max-width: 400px;
       text-align: center;
@@ -44,7 +45,7 @@
     }
 
     h2 {
-      color: #7c4a1a;
+      color: #a05107;
       margin-bottom: 25px;
     }
 
@@ -55,8 +56,8 @@
       border: 1.5px solid #a05107;
       border-radius: 10px;
       transition: 0.3s;
-      background: #fffbe6;
-      color: #faf3ed;
+      background: #fff;
+      color: #7c4a1a;
       font-weight: 600;
     }
 
@@ -68,15 +69,14 @@
 
     input:focus {
       outline: none;
-      border-color: #7c4a1a;
-      background-color: #fff;
-      color: #7c4a1a;
+      border-color: #f1c40f;
+      background-color: #fffde4;
     }
 
     button {
       width: 100%;
       padding: 12px;
-      background-color: #b88c5a;
+      background-color: #a05107;
       color: #fffbe6;
       font-weight: bold;
       border: none;
@@ -85,25 +85,22 @@
       margin-top: 15px;
       transition: background-color 0.3s;
       font-size: 1.08rem;
-      box-shadow: 0 2px 8px rgba(149, 108, 57, 0.13);
+      box-shadow: 0 2px 8px rgba(241,196,15,0.13);
     }
 
     button:hover {
-      background-color: #d8d0c8;
-      color: #ec830bd0;
-    }
-
-    .error, .success {
-      margin-top: 10px;
-      font-size: 14px;
+      background-color: #e6b800;
+      color: #fff;
     }
 
     .error {
-      color: #bfa100;
+      color: #e74c3c;
+      margin-top: 10px;
     }
 
     .success {
-      color: #7a5c00;
+      color: #27ae60;
+      margin-top: 10px;
     }
 
     a {
@@ -117,14 +114,14 @@
     .login-link {
       margin-top: 20px;
       display: block;
-      color: #b88c5a;
+      color: #a05107;
       font-weight: 700;
       text-decoration: none;
       transition: color 0.3s;
     }
 
     .login-link:hover {
-      color: #7c4a1a;
+      color: #f1c40f;
       text-decoration: underline;
     }
   </style>
@@ -142,6 +139,23 @@
           document.body.classList.add('unloading');
         }
       });
+    });
+    // Submit register dengan Enter
+    document.addEventListener('DOMContentLoaded', function() {
+      var regEmail = document.getElementById('regEmail');
+      var regPassword = document.getElementById('regPassword');
+      if (regEmail && regPassword) {
+        regEmail.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            register();
+          }
+        });
+        regPassword.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            register();
+          }
+        });
+      }
     });
   </script>
 
