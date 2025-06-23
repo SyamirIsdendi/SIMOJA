@@ -487,6 +487,9 @@
   </script>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
     :root {
       font-size: 16px;
     }
@@ -619,7 +622,7 @@
       }
       .artikel-content.card-body > * {
         width: 100%;
-        max-width: 95vw;
+        max-width: 100%;
       }
       .artikel-content h3 {
         font-size: 0.98rem;
@@ -678,8 +681,36 @@
         align-items: center;
       }
       .anggota-item {
-        margin-bottom: 0.5rem;
+        width: 90vw;
+        max-width: 350px;
+        min-width: 0;
+        margin-bottom: 0.7rem;
+        background: #fffbe6;
+        border-radius: 16px;
+        box-shadow: 0 2px 8px rgba(241,196,15,0.10);
+        padding: 1rem 0.5rem 0.7rem 0.5rem;
         text-align: center;
+        overflow: visible;
+      }
+      .anggota-item img {
+        max-width: 70px;
+        border-radius: 12px;
+        margin-bottom: 0.5rem;
+      }
+      .anggota-item div {
+        font-size: 1.05rem;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: unset;
+      }
+      .anggota-item div:nth-child(2) {
+        font-weight: 600;
+        margin-bottom: 0.2rem;
+      }
+      .anggota-item div:nth-child(3) {
+        font-size: 0.98rem;
+        color: #a05107;
+        margin-bottom: 0;
       }
     }
     body {
@@ -780,6 +811,42 @@
       .navbar-mobile-menu.show {
         display: flex;
       }
+      .anggota-tim {
+        flex-direction: column;
+        align-items: center;
+      }
+      .anggota-item {
+        width: 90vw;
+        max-width: 350px;
+        min-width: 0;
+        margin-bottom: 0.7rem;
+        background: #fffbe6;
+        border-radius: 16px;
+        box-shadow: 0 2px 8px rgba(241,196,15,0.10);
+        padding: 1rem 0.5rem 0.7rem 0.5rem;
+        text-align: center;
+        overflow: visible;
+      }
+      .anggota-item img {
+        max-width: 70px;
+        border-radius: 12px;
+        margin-bottom: 0.5rem;
+      }
+      .anggota-item div {
+        font-size: 1.05rem;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: unset;
+      }
+      .anggota-item div:nth-child(2) {
+        font-weight: 600;
+        margin-bottom: 0.2rem;
+      }
+      .anggota-item div:nth-child(3) {
+        font-size: 0.98rem;
+        color: #a05107;
+        margin-bottom: 0;
+      }
     }
     @keyframes fadeInDown {
       from { opacity: 0; transform: translateY(-20px); }
@@ -831,28 +898,24 @@
       border-radius: 2px;
       transition: all 0.2s;
     }
+    /* Untuk artikel konten di mobile */
     @media (max-width: 767px) {
-      .header {
-        padding: 8px 10px;
+      .artikel-container.card,
+      .artikel-content.card-body {
+        width: 100%;
+        max-width: 100vw;
+        margin: 0 auto;
+        padding: 0.7rem 0.5rem;
+        box-sizing: border-box;
+        overflow-x: hidden;
       }
-      .logo {
-        flex-direction: row;
-        align-items: center;
-        gap: 8px;
-        flex: 1;
-        justify-content: flex-start;
+      .artikel-content.card-body {
+        word-break: break-word;
+        overflow-wrap: break-word;
       }
-      .logo-img {
-        max-height: 32px;
-      }
-      .header h1 {
-        font-size: 1.13rem;
-        margin: 0;
-      }
-      .navbar-toggler {
-        display: inline-flex !important;
-        position: static;
-        margin-left: auto;
+      .artikel-content.card-body > * {
+        width: 100%;
+        max-width: 100%;
       }
     }
   </style>
