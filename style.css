@@ -384,34 +384,70 @@ body {
 /* --- BAGIAN TIM MOBILE --- */
 @media (max-width: 767px) {
   .sidebar-bawah .anggota-tim {
-    flex-direction: column !important;
-    gap: 14px 0 !important;
+    flex-direction: column;
+    gap: 14px 0;
     align-items: center;
     width: 100%;
   }
   .sidebar-bawah .anggota-item {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
     min-width: 0 !important;
     max-width: 95vw !important;
     width: 95vw !important;
-    margin: 0 auto !important;
-    padding: 14px 10px 10px 10px !important;
+    margin: 0 auto 12px auto !important;
+    padding: 12px 10px !important;
     border-radius: 16px !important;
     box-shadow: 0 2px 8px rgba(241,196,15,0.13);
+    background: #fffbe6;
   }
   .sidebar-bawah .anggota-item img {
-    width: 60px !important;
-    height: 60px !important;
+    width: 54px !important;
+    height: 54px !important;
     object-fit: contain !important;
     border-radius: 50%;
-    margin-bottom: 8px;
+    margin-bottom: 0;
+    margin-right: 16px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(241,196,15,0.10);
   }
-  .sidebar-bawah .anggota-item div:first-of-type {
-    font-size: 1.08rem !important;
-    white-space: nowrap;
+  .sidebar-bawah .anggota-item div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    font-size: 1.05rem;
+    color: #1a2233;
+    white-space: normal;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 100%;
-    text-align: center;
+    margin-bottom: 0;
+    padding: 0;
+  }
+  .sidebar-bawah .anggota-item div:first-of-type {
+    font-weight: 600;
+    color: #a05107;
+    font-size: 1.08rem;
+    margin-bottom: 2px;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sidebar-bawah .anggota-item div:last-of-type {
+    font-size: 0.97rem;
+    color: #888;
+    margin-bottom: 0;
+    margin-top: 0;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  /* Pastikan urutan nama dan keterangan selalu vertikal */
+  .sidebar-bawah .anggota-item > div > * {
+    display: block;
+    text-align: left;
   }
 }
 
@@ -594,5 +630,125 @@ body {
   .contact-btn {
     font-size: 0.98rem;
     padding: 10px 12px;
+  }
+}
+
+/* --- ANGGOTA INFO --- */
+.anggota-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+@media (max-width: 767px) {
+  .anggota-tim {
+    flex-direction: column;
+    gap: 14px 0;
+    align-items: center;
+    width: 100%;
+  }
+  .anggota-item {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    min-width: 0 !important;
+    max-width: 95vw !important;
+    width: 95vw !important;
+    margin: 0 auto 12px auto !important;
+    padding: 12px 10px !important;
+    border-radius: 16px !important;
+    box-shadow: 0 2px 8px rgba(241,196,15,0.13);
+    background: #fffbe6;
+  }
+  .anggota-item img {
+    width: 54px !important;
+    height: 54px !important;
+    object-fit: contain !important;
+    border-radius: 50%;
+    margin-bottom: 0;
+    margin-right: 16px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(241,196,15,0.10);
+  }
+  .anggota-info {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    width: 100%;
+  }
+  .anggota-info > div:first-child {
+    font-weight: 600;
+    color: #a05107;
+    font-size: 1.08rem;
+    margin-bottom: 2px;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .anggota-info > div:last-child {
+    font-size: 0.97rem;
+    color: #888;
+    margin-bottom: 0;
+    margin-top: 0;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (min-width: 768px) {
+  .anggota-tim {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    margin: 18px 0 8px 0;
+  }
+  .anggota-item {
+    min-width: 180px;
+    max-width: 220px;
+    width: 100%;
+    margin: 0;
+    padding: 18px 12px 14px 12px;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(241,196,15,0.10);
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .anggota-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    background: #fffbe6;
+    box-shadow: 0 2px 8px rgba(241,196,15,0.10);
+  }
+  .anggota-info {
+    align-items: center;
+    text-align: center;
+    width: 100%;
+  }
+  .anggota-info > div:first-child {
+    font-size: 1.08rem;
+    font-weight: 600;
+    color: #a05107;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    margin-bottom: 2px;
+  }
+  .anggota-info > div:last-child {
+    font-size: 0.97rem;
+    color: #888;
   }
 }
