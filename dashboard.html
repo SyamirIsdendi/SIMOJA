@@ -455,24 +455,90 @@
   </script>
 
   <style>
-    @media (max-width: 767px) {
+    :root {
+      font-size: 16px;
+    }
+    .beranda-content {
+      padding-left: 2vw;
+      padding-right: 2vw;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+    .beranda-content h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+    .artikel-container.card {
+      padding: 1.2rem 2vw;
+    }
+    .artikel-content h3 {
+      font-size: 1.3rem;
+    }
+    .artikel-content p {
+      font-size: 1rem;
+    }
+    .barcode-section .barcode-img {
+      max-width: 60%;
+      height: auto;
+    }
+    .swiper {
+      min-height: 18vw;
+      border-radius: 1.2rem;
+    }
+    /* Untuk smartphone */
+    @media (max-width: 768px) {
+      .beranda-content {
+        padding-left: 3vw;
+        padding-right: 3vw;
+        padding-top: 1.2rem;
+        padding-bottom: 1.2rem;
+      }
       .beranda-content h2 {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
       }
       .artikel-content h3 {
-        font-size: 1.1rem;
+        font-size: 1.05rem;
       }
       .artikel-content p {
         font-size: 0.97rem;
       }
       .barcode-section .barcode-img {
-        max-width: 120px;
+        max-width: 90vw;
       }
       .swiper {
-        min-height: 180px;
+        min-height: 32vw;
       }
-      .artikel-container.card {
-        padding: 0.5rem 0.7rem;
+      .menu {
+        display: block;
+        font-size: 0.88rem;
+      }
+    }
+    /* Untuk desktop */
+    @media (min-width: 769px) {
+      .beranda-content {
+        padding-left: 6vw;
+        padding-right: 6vw;
+        padding-top: 2.5rem;
+        padding-bottom: 2.5rem;
+      }
+      .beranda-content h2 {
+        font-size: 2.2rem;
+      }
+      .artikel-content h3 {
+        font-size: 1.3rem;
+      }
+      .artikel-content p {
+        font-size: 1.05rem;
+      }
+      .barcode-section .barcode-img {
+        max-width: 60%;
+      }
+      .swiper {
+        min-height: 18vw;
+      }
+      .menu {
+        display: flex;
+        font-size: 1.13rem;
       }
     }
   </style>
