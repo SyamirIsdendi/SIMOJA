@@ -59,13 +59,35 @@
         <li><a href="#" onclick="showSection('monitoring')">Monitoring</a></li>
         <li><a href="#" onclick="showSection('lokasi')">Lokasi</a></li>
       </ul>
-      <button id="logout-btn" class="btn btn-warning ms-3 navbar-logout" style="font-weight:600;border-radius:20px;padding:8px 22px;box-shadow:0 2px 8px rgba(241,196,15,0.13);">Logout</button>
+      <button id="logout-btn" class="btn btn-warning ms-3 navbar-logout d-none d-md-inline-block" style="font-weight:600;border-radius:20px;padding:8px 22px;box-shadow:0 2px 8px rgba(241,196,15,0.13);">Logout</button>
       <div class="navbar-mobile-menu" id="navbarMobileMenu">
         <a href="#" onclick="showSection('beranda');toggleMobileMenu();">Beranda</a>
         <a href="#" onclick="showSection('monitoring');toggleMobileMenu();">Monitoring</a>
         <a href="#" onclick="showSection('lokasi');toggleMobileMenu();">Lokasi</a>
+        <a href="#" onclick="showSection('contact');toggleMobileMenu();">Contact Us</a>
         <button id="logout-btn-mobile" class="btn btn-warning w-100 mt-2" style="font-weight:600;border-radius:20px;padding:8px 0;">Logout</button>
       </div>
+
+      <!-- Tambahkan Contact Us ke navbar desktop -->
+      <ul class="navbar-menu navbar-menu-right">
+        <li><a href="#" onclick="showSection('contact')">Contact Us</a></li>
+      </ul>
+
+      <!-- Section Contact Us -->
+      <section id="contact" style="display:none;">
+        <div class="contact-hero">
+          <h2>Terima Kasih Telah Menghubungi Kami!</h2>
+          <p>Kami sangat berterimakasih atas saran dan kritik yang anda berikan.</p>
+        </div>
+        <div class="contact-cards">
+          <div class="contact-card">
+            <div class="contact-icon"><span style="font-size:2.2rem;">&#128172;</span></div>
+            <h3>Kritik dan Saran</h3>
+            <p>Kami terbuka untuk masukan, kritik, dan saran Anda demi pengembangan sistem yang lebih baik.</p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeB3HffaW53SG_YPXUbc7Ma4ddWAB7_1lnfjaIEN_IEQwgHjg/viewform?usp=sharing&ouid=110590131760065842309" class="contact-btn" target="_blank" rel="noopener">Isi Form Kritik & Saran</a>
+          </div>
+        </div>
+      </section>
     </nav>
 
     <main class="main-layout">
@@ -118,18 +140,8 @@
               <div class="col-12 col-md-6 col-lg-4">
                 <div class="barcode-section card border-0 shadow-sm text-center py-3">
                   <div class="barcode-container">
-                    <div class="arrow-animasi-barcode mb-2">
-                      <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M30 0 C32 20, 55 30, 30 50" stroke="#e67e22" stroke-width="5" fill="none" marker-end="url(#arrowhead)"/>
-                        <defs>
-                          <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" markerUnits="strokeWidth">
-                            <polygon points="0 0, 10 5, 0 10" fill="#e67e22"/>
-                          </marker>
-                        </defs>
-                      </svg>
-                    </div>
                     <img src="FOTO/FOTO BARCODE/BARCODE APK SIMOJA.jpg" alt="Barcode Download Aplikasi" class="barcode-img img-fluid mb-2" style="max-width:180px;">
-                    <div class="fw-bold">Download aplikasi di sini!</div>
+                    <div class="fw-bold"><a href="https://drive.google.com/drive/folders/1ALDRo_SYDi3QR7lC6P7f2NoT3OVuB3Ip" target="_blank" rel="noopener">Download aplikasi di sini!</a></div>
                   </div>
                 </div>
               </div>
@@ -203,13 +215,18 @@
       <div>Introduction Our Team!</div>
       <div class="anggota-tim">
         <div class="anggota-item">
+          <img src="FOTO/FOTO TIM/PAK KAMAR.jpg" alt="Manpro">
+          <div>Bapak Ir.Kamarudin,S.T., M.T., IPM</div>
+          <div>Manpro</div>
+        </div>
+        <div class="anggota-item">
           <img src="FOTO/FOTO TIM/FARHAN.jpg" alt="Ketua">
           <div>Farhan Arfachrudin</div>
           <div>Ketua Kelompok</div>
         </div>
         <div class="anggota-item">
           <img src="FOTO/FOTO TIM/RAKA.jpg" alt="Anggota">
-          <div>M Galih Raka Y.</div>
+          <div>M Galih Raka Yanuardi</div>
           <div>Anggota</div>
         </div>
         <div class="anggota-item">
@@ -219,7 +236,7 @@
         </div>
         <div class="anggota-item">
           <img src="FOTO/FOTO TIM/BAMBANG.jpg" alt="Anggota">
-          <div>Bambang Fadhila Y.</div>
+          <div>Bambang Fadhila Yusuf</div>
           <div>Anggota</div>
         </div>
       </div>
@@ -242,6 +259,13 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      // Tampilkan privacy popup hanya jika belum pernah disetujui di sesi ini
+      if (sessionStorage.getItem('privacyAccepted') === 'true') {
+        document.getElementById('privacy-popup').style.display = 'none';
+      } else {
+        document.getElementById('privacy-popup').style.display = 'block';
+      }
+
       new Swiper('.beranda-swiper', {
         loop: true,
         pagination: { el: '.swiper-pagination', clickable: true },
@@ -252,7 +276,7 @@
       });
 
       document.getElementById('privacy-accept').onclick = function() {
-        localStorage.setItem('privacyAccepted', 'true');
+        sessionStorage.setItem('privacyAccepted', 'true');
         document.getElementById('privacy-popup').style.display = 'none';
       };
 
@@ -278,8 +302,9 @@
     });
 
     function showSection(id) {
-      document.querySelectorAll('main section').forEach(section => section.style.display = 'none');
-      document.getElementById(id).style.display = 'block';
+      document.querySelectorAll('main section, #contact').forEach(section => section.style.display = 'none');
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'block';
     }
 
     function toggleMobileMenu() {
@@ -703,6 +728,13 @@
       }
       .artikel-content p {
         font-size: 0.93rem;
+      .artikel-content h3 {
+        font-size: 0.98rem;
+        margin-bottom: 0.7rem;
+        text-align: center;
+      }
+      .artikel-content p {
+        font-size: 0.93rem;
         margin-bottom: 0.5rem;
         text-align: justify;
       }
@@ -747,141 +779,6 @@
       .sidebar-bawah {
         font-size: 0.93rem;
         padding: 0.7rem 0.3rem;
-      }
-      .anggota-tim {
-        flex-direction: column;
-        align-items: center;
-      }
-      .anggota-item {
-        width: 90vw;
-        max-width: 350px;
-        min-width: 0;
-        margin-bottom: 0.7rem;
-        background: #fffbe6;
-        border-radius: 16px;
-        box-shadow: 0 2px 8px rgba(241,196,15,0.10);
-        padding: 1rem 0.5rem 0.7rem 0.5rem;
-        text-align: center;
-        overflow: visible;
-      }
-      .anggota-item img {
-        max-width: 70px;
-        border-radius: 12px;
-        margin-bottom: 0.5rem;
-      }
-      .anggota-item div {
-        font-size: 1.05rem;
-        white-space: normal;
-        overflow: visible;
-        text-overflow: unset;
-      }
-      .anggota-item div:nth-child(2) {
-        font-weight: 600;
-        margin-bottom: 0.2rem;
-      }
-      .anggota-item div:nth-child(3) {
-        font-size: 0.98rem;
-        color: #a05107;
-        margin-bottom: 0;
-      }
-    }
-    body {
-      overflow-x: hidden;
-    }
-    .card img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-    }
-    .navbar-menu, .navbar-logout {
-      display: flex;
-      align-items: center;
-    }
-    .navbar-toggler {
-      display: none;
-      background: none;
-      border: none;
-      outline: none;
-      padding: 0 8px;
-      height: 40px;
-      width: 44px;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 1001;
-    }
-    .navbar-toggler .bar {
-      display: block;
-      width: 30px;
-      height: 4px;
-      background: #111;
-      margin: 5px 0;
-      border-radius: 2px;
-      transition: all 0.2s;
-    }
-    .navbar-mobile-menu {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      width: 100vw;
-      background: #fffbe6;
-      box-shadow: 0 4px 18px rgba(241,196,15,0.13);
-      z-index: 999;
-      flex-direction: column;
-      padding: 1rem 0.5rem 1rem 0.5rem;
-      border-radius: 0 0 16px 16px;
-      text-align: center;
-      animation: fadeInDown 0.2s;
-      align-items: stretch;
-    }
-    .navbar-mobile-menu.show {
-      display: flex;
-    }
-    .navbar-mobile-menu a {
-      color: #e67e22;
-      font-weight: 600;
-      text-decoration: none;
-      padding: 12px 0;
-      font-size: 1.08rem;
-      border-radius: 12px;
-      transition: background 0.18s, color 0.18s;
-      margin: 0.2rem 0;
-      display: block;
-      width: 100%;
-      text-align: center;
-    }
-    .navbar-mobile-menu a:hover {
-      background: #fff;
-      color: #a05107;
-    }
-    .navbar-mobile-menu #logout-btn-mobile {
-      display: block;
-      width: 100%;
-      margin: 0.2rem 0 0 0;
-      font-size: 1.08rem;
-      border-radius: 12px;
-      text-align: center;
-      padding: 12px 0;
-    }
-    @media (max-width: 767px) {
-      .navbar-menu, .navbar-logout {
-        display: none !important;
-      }
-      .navbar-toggler {
-        display: inline-flex !important;
-        position: static;
-        margin-left: auto;
-      }
-      .navbar {
-        position: relative;
-      }
-      .navbar-mobile-menu {
-        display: none;
-      }
-      .navbar-mobile-menu.show {
-        display: flex;
       }
       .anggota-tim {
         flex-direction: column;
@@ -1058,6 +955,24 @@
         max-height: 220px;
         max-width: 100vw;
       }
+    }
+    .anggota-item img {
+      max-width: 110px;
+      max-height: 110px;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: contain;
+      margin-bottom: 0.5rem;
+      background: #fffbe6;
+      box-shadow: 0 2px 8px rgba(241,196,15,0.10);
+    }
+    .anggota-item div {
+      font-size: 1.05rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: center;
     }
   </style>
 </body>
