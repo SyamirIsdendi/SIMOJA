@@ -119,6 +119,13 @@ body {
   order: 2;
 }
 
+.sidebar-bawah {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  border-radius: 0 0 16px 16px;
+}
+
 .sidebar h3 {
   color: #e67e22;
   font-size: 1.2rem;
@@ -505,6 +512,13 @@ body {
     min-width: 220px;
     margin: 0 0 0 24px;
     order: unset;
+  }
+
+  .sidebar-bawah {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    border-radius: 0 0 16px 16px;
   }
 }
 body {
