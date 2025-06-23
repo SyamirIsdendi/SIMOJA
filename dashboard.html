@@ -202,7 +202,7 @@
         </div>
         <div class="anggota-item">
           <img src="FOTO/FOTO TIM/RAKA.jpg" alt="Anggota">
-          <div>M Galih Raka Yanuardi</div>
+          <div>M Galih Raka Y.</div>
           <div>Anggota</div>
         </div>
         <div class="anggota-item">
@@ -212,7 +212,7 @@
         </div>
         <div class="anggota-item">
           <img src="FOTO/FOTO TIM/BAMBANG.jpg" alt="Anggota">
-          <div>Bambang Fadhila Yusuf</div>
+          <div>Bambang Fadhila Y.</div>
           <div>Anggota</div>
         </div>
       </div>
@@ -486,31 +486,33 @@
       border-radius: 1.2rem;
     }
     /* Untuk smartphone */
-    @media (max-width: 768px) {
+    @media (min-width: 768px) {
       .beranda-content {
         padding-left: 3vw;
         padding-right: 3vw;
         padding-top: 1.2rem;
         padding-bottom: 1.2rem;
       }
-      .beranda-content h2 {
-        font-size: 1.2rem;
+      .row.justify-content-center.mb-4 > .col-12.col-md-10.col-lg-8 {
+        margin-left: auto;
+        margin-right: auto;
+        float: none;
       }
-      .artikel-content h3 {
-        font-size: 1.05rem;
+      .artikel-container.card {
+        margin-left: auto;
+        margin-right: auto;
+        float: none;
+        width: 100%;
+        max-width: 98vw;
       }
-      .artikel-content p {
-        font-size: 0.97rem;
-      }
-      .barcode-section .barcode-img {
-        max-width: 90vw;
-      }
-      .swiper {
-        min-height: 32vw;
-      }
-      .menu {
-        display: block;
-        font-size: 0.88rem;
+      .artikel-content.card-body {
+        text-align: justify;
+        margin-left: auto;
+        margin-right: auto;
+        float: none;
+        width: 100%;
+        max-width: 98vw;
+        box-sizing: border-box;
       }
     }
     /* Untuk desktop */
