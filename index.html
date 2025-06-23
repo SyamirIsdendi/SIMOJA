@@ -15,7 +15,8 @@
     }
 
     body {
-      background: linear-gradient(120deg, #a05107 0%, #a05107 100%);
+      background: url('FOTO/FOTO LOGO/BACKGROUND.jpg') no-repeat center center fixed;
+      background-size: cover;
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -146,11 +147,25 @@
         }
       });
     });
+    // Submit login dengan Enter
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.classList.add('loaded');
+      document.getElementById('password').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          login();
+        }
+      });
+      document.getElementById('email').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          login();
+        }
+      });
+    });
   </script>
 
   <div class="login-container">
     <div style="margin-bottom: 10px;">
-      <img src="FOTO/FOTO LOGO/simoja.jpg" alt="Logo SIMOJA" style="width:70px;height:70px;border-radius:16px;box-shadow:0 2px 8px rgba(160,81,7,0.13);object-fit:cover;">
+      <img src="FOTO/FOTO LOGO/simojapng.png" alt="Logo SIMOJA" style="width:70px;height:70px;border-radius:16px;box-shadow:0 2px 8px rgba(160,81,7,0.13);object-fit:cover;">
     </div>
     <h2>SIGN IN</h2>
     <input type="email" id="email" placeholder="Email" />
