@@ -218,7 +218,7 @@
         <div class="anggota-item">
           <img src="FOTO/FOTO TIM/PAK KAMAR.jpg" alt="Manpro">
           <div class="anggota-info">
-            <div>Bapak Ir.Kamarudin,S.T., M.T., IPM</div>
+            <div> Ir.Kamarudin,S.T., M.T., IPM</div>
             <div>Manpro</div>
           </div>
         </div>
@@ -447,16 +447,28 @@
     }
 
     // Responsive canvas height for desktop & mobile
+    // --- Responsive Chart Height: Fix for mobile chart 'gepeng' after data update ---
     function setChartCanvasHeight() {
       const isMobile = window.innerWidth <= 768;
-      const chartHeight = isMobile ? 220 : 400;
-      document.getElementById('chart-suhu').height = chartHeight;
-      document.getElementById('chart-humidity').height = chartHeight;
-      document.getElementById('chart-arus').height = chartHeight;
-      document.getElementById('chart-relay').height = chartHeight;
+      const chartHeight = isMobile ? 320 : 400;
+      // Only set attribute if not already set, to avoid Chart.js canvas reset bug
+      ['chart-suhu','chart-humidity','chart-arus','chart-relay'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el && el.height !== chartHeight) {
+          el.height = chartHeight;
+        }
+      });
     }
+    // Set once on load
     setChartCanvasHeight();
-    window.addEventListener('resize', setChartCanvasHeight);
+    // Only set on orientationchange, not every resize (to avoid Chart.js bug on mobile)
+    window.addEventListener('orientationchange', setChartCanvasHeight);
+    // Optional: also on resize, but debounce to avoid rapid firing
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(setChartCanvasHeight, 300);
+    });
 
     const chartSuhu = new Chart(document.getElementById('chart-suhu').getContext('2d'), {
       type: 'line',
@@ -470,7 +482,7 @@
           fill: true,
           tension: 0.3,
           pointRadius: 4,
-          pointHoverRadius: 7,
+          pointHoverRadius: 6,
           borderWidth: 5,
           shadow: true,
         }]
@@ -489,7 +501,7 @@
           fill: true,
           tension: 0.3,
           pointRadius: 4,
-          pointHoverRadius: 7,
+          pointHoverRadius: 6,
           borderWidth: 5,
           shadow: true,
         }]
@@ -508,7 +520,7 @@
           fill: true,
           tension: 0.3,
           pointRadius: 4,
-          pointHoverRadius: 7,
+          pointHoverRadius: 6,
           borderWidth: 5,
           shadow: true,
         }]
@@ -528,7 +540,7 @@
           tension: 0,
           stepped: true,
           pointRadius: 4,
-          pointHoverRadius: 7,
+          pointHoverRadius: 6,
           borderWidth: 5,
           shadow: true,
         }]
