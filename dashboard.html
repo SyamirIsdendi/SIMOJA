@@ -446,28 +446,25 @@
       };
     }
 
-    // Responsive canvas height for desktop & mobile
-    // --- Responsive Chart Height: Fix for mobile chart 'gepeng' after data update ---
-    function setChartCanvasHeight() {
+    // --- Perbaikan chart mobile agar tidak gepeng di device asli ---
+    function setInitialChartCanvasHeight() {
       const isMobile = window.innerWidth <= 768;
       const chartHeight = isMobile ? 320 : 400;
-      // Only set attribute if not already set, to avoid Chart.js canvas reset bug
       ['chart-suhu','chart-humidity','chart-arus','chart-relay'].forEach(id => {
         const el = document.getElementById(id);
-        if (el && el.height !== chartHeight) {
-          el.height = chartHeight;
+        if (el) {
+          el.setAttribute('height', chartHeight);
+          el.style.height = chartHeight + 'px';
         }
       });
     }
-    // Set once on load
-    setChartCanvasHeight();
-    // Only set on orientationchange, not every resize (to avoid Chart.js bug on mobile)
-    window.addEventListener('orientationchange', setChartCanvasHeight);
-    // Optional: also on resize, but debounce to avoid rapid firing
-    let resizeTimeout;
-    window.addEventListener('resize', function() {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(setChartCanvasHeight, 300);
+    // Set sebelum Chart.js inisialisasi
+    setInitialChartCanvasHeight();
+    // Hanya update saat orientasi berubah (bukan resize biasa)
+    window.addEventListener('orientationchange', function() {
+      setInitialChartCanvasHeight();
+      // Chart.js tidak auto-resize, reload page agar chart proporsional
+      setTimeout(function(){ location.reload(); }, 200);
     });
 
     const chartSuhu = new Chart(document.getElementById('chart-suhu').getContext('2d'), {
@@ -966,15 +963,13 @@
       #chart-humidity,
       #chart-arus,
       #chart-relay {
-        height: 220px !important;
-        min-height: 180px !important;
-        max-height: 260px !important;
         width: 100% !important;
         display: block;
         margin: 0 auto 16px auto;
         cursor: pointer;
         background: #fffbe6;
         border-radius: 12px;
+        /* height diatur lewat atribut, bukan CSS! */
       }
     }
     /* Swiper image fit for desktop */
