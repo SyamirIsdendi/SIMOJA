@@ -394,6 +394,70 @@
       }
     };
 
+    // Chart.js options with tooltip enabled and responsive size
+    function getChartOptions(type) {
+      let yMin = 0, yMax = 100, step = 10, color = '#000', tickColor = '#000', fontSize = 14, callback = undefined;
+      if (type === 'suhu') {
+        yMin = 20; yMax = 40; step = 5; color = '#f1c40f'; tickColor = '#a05107'; fontSize = 16;
+        callback = function(value) { return [20,25,30,35,40].includes(value) ? value : ''; };
+      } else if (type === 'humidity') {
+        yMin = 60; yMax = 100; step = 10; color = '#3498db'; tickColor = '#1a4a7c'; fontSize = 16;
+      } else if (type === 'arus') {
+        yMin = 0.1; yMax = 2; step = 0.2; color = '#27ae60'; tickColor = '#1a7c4a'; fontSize = 16;
+      } else if (type === 'relay') {
+        yMin = 0; yMax = 1; step = 1; color = '#e74c3c'; tickColor = '#a05107'; fontSize = 16;
+      }
+      return {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: true },
+          tooltip: {
+            enabled: true,
+            mode: 'nearest',
+            intersect: false,
+            callbacks: {
+              label: function(context) {
+                let label = context.dataset.label || '';
+                if (label) label += ': ';
+                if (context.parsed.y != null) label += context.parsed.y;
+                return label;
+              }
+            }
+          }
+        },
+        scales: {
+          y: {
+            min: yMin,
+            max: yMax,
+            grid: { color: color, lineWidth: 2 },
+            ticks: {
+              stepSize: step,
+              color: tickColor,
+              font: { weight: 'bold', size: fontSize },
+              callback: callback
+            }
+          },
+          x: {
+            grid: { color: color+'44', lineWidth: 1.5 },
+            ticks: { color: tickColor, font: { size: 14 } }
+          }
+        }
+      };
+    }
+
+    // Responsive canvas height for desktop & mobile
+    function setChartCanvasHeight() {
+      const isMobile = window.innerWidth <= 768;
+      const chartHeight = isMobile ? 220 : 400;
+      document.getElementById('chart-suhu').height = chartHeight;
+      document.getElementById('chart-humidity').height = chartHeight;
+      document.getElementById('chart-arus').height = chartHeight;
+      document.getElementById('chart-relay').height = chartHeight;
+    }
+    setChartCanvasHeight();
+    window.addEventListener('resize', setChartCanvasHeight);
+
     const chartSuhu = new Chart(document.getElementById('chart-suhu').getContext('2d'), {
       type: 'line',
       data: {
@@ -406,35 +470,12 @@
           fill: true,
           tension: 0.3,
           pointRadius: 4,
-          pointHoverRadius: 6,
+          pointHoverRadius: 7,
           borderWidth: 5,
           shadow: true,
         }]
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: true } },
-        scales: {
-          y: {
-            min: 20, // contoh: bisa diatur otomatis atau sesuai range data
-            max: 40,
-            grid: { color: '#f1c40f', lineWidth: 2 },
-            ticks: {
-              stepSize: 5,
-              color: '#a05107',
-              font: { weight: 'bold', size: 16 },
-              callback: function(value) {
-                return [20,25,30,35,40].includes(value) ? value : '';
-              }
-            }
-          },
-          x: {
-            grid: { color: '#f1c40f44', lineWidth: 1.5 },
-            ticks: { color: '#a05107', font: { size: 14 } }
-          }
-        }
-      }
+      options: getChartOptions('suhu')
     });
     const chartHumidity = new Chart(document.getElementById('chart-humidity').getContext('2d'), {
       type: 'line',
@@ -448,32 +489,12 @@
           fill: true,
           tension: 0.3,
           pointRadius: 4,
-          pointHoverRadius: 6,
+          pointHoverRadius: 7,
           borderWidth: 5,
           shadow: true,
         }]
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: true } },
-        scales: {
-          y: {
-            min: 60, // contoh: bisa diatur otomatis atau sesuai range data
-            max: 100,
-            grid: { color: '#3498db', lineWidth: 2 },
-            ticks: {
-              stepSize: 10,
-              color: '#1a4a7c',
-              font: { weight: 'bold', size: 16 }
-            }
-          },
-          x: {
-            grid: { color: '#3498db44', lineWidth: 1.5 },
-            ticks: { color: '#1a4a7c', font: { size: 14 } }
-          }
-        }
-      }
+      options: getChartOptions('humidity')
     });
     const chartArus = new Chart(document.getElementById('chart-arus').getContext('2d'), {
       type: 'line',
@@ -487,28 +508,12 @@
           fill: true,
           tension: 0.3,
           pointRadius: 4,
-          pointHoverRadius: 6,
+          pointHoverRadius: 7,
           borderWidth: 5,
           shadow: true,
         }]
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: true } },
-        scales: {
-          y: {
-            min: 0.1, // contoh: bisa diatur otomatis
-            max: 2,
-            grid: { color: '#27ae60', lineWidth: 2 },
-            ticks: { color: '#1a7c4a', font: { weight: 'bold', size: 16 } }
-          },
-          x: {
-            grid: { color: '#27ae6044', lineWidth: 1.5 },
-            ticks: { color: '#1a7c4a', font: { size: 14 } }
-          }
-        }
-      }
+      options: getChartOptions('arus')
     });
     const chartRelay = new Chart(document.getElementById('chart-relay').getContext('2d'), {
       type: 'line',
@@ -523,28 +528,12 @@
           tension: 0,
           stepped: true,
           pointRadius: 4,
-          pointHoverRadius: 6,
+          pointHoverRadius: 7,
           borderWidth: 5,
           shadow: true,
         }]
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: true } },
-        scales: {
-          y: {
-            beginAtZero: true,
-            max: 1,
-            grid: { color: '#e74c3c', lineWidth: 2 },
-            ticks: { color: '#a05107', font: { weight: 'bold', size: 16 } }
-          },
-          x: {
-            grid: { color: '#e74c3c44', lineWidth: 1.5 },
-            ticks: { color: '#a05107', font: { size: 14 } }
-          }
-        }
-      }
+      options: getChartOptions('relay')
     });
 
     function addChartData(label, suhu, humidity, arus, relay) {
@@ -950,12 +939,13 @@
       #chart-humidity,
       #chart-arus,
       #chart-relay {
-        min-height: 320px !important;
         height: 400px !important;
+        min-height: 320px !important;
         max-height: 480px !important;
         width: 100% !important;
         display: block;
         margin: 0 auto 24px auto;
+        cursor: pointer;
       }
     }
     /* Chart.js canvas mobile */
@@ -964,12 +954,13 @@
       #chart-humidity,
       #chart-arus,
       #chart-relay {
-        min-height: 180px !important;
         height: 220px !important;
+        min-height: 140px !important;
         max-height: 260px !important;
         width: 100% !important;
         display: block;
         margin: 0 auto 16px auto;
+        cursor: pointer;
       }
     }
     /* Swiper image fit for desktop */
