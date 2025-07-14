@@ -447,23 +447,22 @@
     }
 
     // --- Perbaikan chart mobile agar tidak gepeng di device asli ---
+    // --- Perbaikan chart mobile agar proporsional di device asli ---
     function setInitialChartCanvasHeight() {
       const isMobile = window.innerWidth <= 768;
-      const chartHeight = isMobile ? 320 : 400;
+      // Gunakan 220px agar tidak terlalu tinggi di mobile
+      const chartHeight = isMobile ? 220 : 400;
       ['chart-suhu','chart-humidity','chart-arus','chart-relay'].forEach(id => {
         const el = document.getElementById(id);
         if (el) {
+          el.removeAttribute('style'); // Hapus style.height agar tidak override
           el.setAttribute('height', chartHeight);
-          el.style.height = chartHeight + 'px';
         }
       });
     }
-    // Set sebelum Chart.js inisialisasi
     setInitialChartCanvasHeight();
-    // Hanya update saat orientasi berubah (bukan resize biasa)
     window.addEventListener('orientationchange', function() {
       setInitialChartCanvasHeight();
-      // Chart.js tidak auto-resize, reload page agar chart proporsional
       setTimeout(function(){ location.reload(); }, 200);
     });
 
@@ -970,6 +969,8 @@
         background: #fffbe6;
         border-radius: 12px;
         /* height diatur lewat atribut, bukan CSS! */
+        max-height: 260px !important;
+        min-height: 180px !important;
       }
     }
     /* Swiper image fit for desktop */
